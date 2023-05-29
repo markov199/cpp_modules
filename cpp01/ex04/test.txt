@@ -1,0 +1,3 @@
+Text to test some 
+text replacement
+ cannot use a replace func.
