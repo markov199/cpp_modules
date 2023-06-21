@@ -1,6 +1,6 @@
 copy constructor:
 
-https://www.geeksforgeeks.org/copy-constructor-in-cpp/
+https://www.geeksforgeeks.org/copy-constructor-in-cpp
 
 
 operator overloading:
