@@ -13,6 +13,11 @@
 #ifndef FORM_HPP
 #define FORM_HPP
 
+#include<iostream>
+#include<string>
+#include<stdexcept>
+#include"Bureaucrat.hpp"
+
 class Bureaucrat;
 
 class Form
@@ -28,12 +33,36 @@ class Form
 	public:
 		Form(std::string name, int signGrade, int execGrade);
 		~Form();
-		std::string getName();
-		bool getIsSigned();
-		int getGradeToSign();
-		int getGradeToExec();
+		Form(const Form &copy);
+		Form &operator=(const Form &rhs);
 
-		bool beSigned(Bureaucrat *bureaucrat);
-}
- std::ostream &operator<<(Form *form);
+		std::string getName() const;
+		bool getIsSigned();
+		int getGradeToSign() const;
+		int getGradeToExec() const;
+
+		class GradeTooHighException: public std::exception
+		{
+			public:
+				const char *what () const throw();
+		};
+
+		class GradeTooLowException: public std::exception
+		{
+			public:
+				const char *what() const throw();
+		};
+
+		class FormAlreadySignedException: public std::exception
+		{
+			public:
+				const char *what () const throw();
+		};
+
+		void beSigned(Bureaucrat *bureaucrat);
+};
+
+std::ostream &operator<<(std::ostream &os, Form *form);
+static void checkGrades(int grade);
+
 #endif
