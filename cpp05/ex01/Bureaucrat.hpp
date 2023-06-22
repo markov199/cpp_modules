@@ -14,7 +14,13 @@
 #define BUREAUCRAT_HPP
 
 #include<iostream>
-class Form
+#include<string>
+#include<stdexcept>
+
+#define LOWEST_GRADE 150
+#define HIGHEST_GRADE 1
+
+class Form;
 
 class Bureaucrat
 {
@@ -22,21 +28,31 @@ class Bureaucrat
 
 		const std::string _name;
 		int	_grade;
-		Bureaucrat()
+		Bureaucrat();
 
 	public:
-		Bureaucrat(std::strng name);
 		Bureaucrat(std::string name, int grade);
 		~Bureaucrat();		
-		Bureaucrat(Bureaucrat &copy);
-		Bureaucrat &operator=(constBureaucrat &rhs);
-		~Bureaucrat();
+		Bureaucrat(const Bureaucrat &copy);
+		Bureaucrat &operator=(const Bureaucrat &rhs);
 		
-		getName();
-		getGrade();
-		incrementGrade(int i);
-		decrementGrade(int i);
-		signForm(Form *form)
+		std::string getName() const;
+		int getGrade() const;
+
+		void incrementGrade();
+		void decrementGrade();
+		void signForm(Form &form);
+		class GradeTooHighException: public std::exception
+		{
+			public:
+				const char *what() const throw();				
+		};
+
+		class GradeTooLowException: public std::exception
+		{
+			public:
+				const char *what() const throw();				
+		};
 };
 
 std::ostream &operator<<(std::ostream &os, Bureaucrat const&rhs);
