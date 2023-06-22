@@ -10,37 +10,28 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include<iostream>
 #include"Bureaucrat.hpp"
 #include"Form.hpp"
 
-Bureaucrat::Bureaucrat():_name("nameless"), _grade(150){}
-
-Bureaucrat::Bureaucrat(std::strng name):_name(name), _grade(150){}
 
 Bureaucrat::Bureaucrat(std::string name, int grade):_name(name)
 {
-	try 
-	{
-		(grade > 150)
-		//if grede > 150 grade too low exception
-
-	}
+	if (grade > LOWEST_GRADE)
+		throw (Bureaucrat::GradeTooLowException());
+	if (grade < HIGHEST_GRADE)
+		throw (Bureaucrat::GradeTooHighException());
 	_grade = grade;
 }
 
-~Bureaucrat::Bureaucrat(){}
+Bureaucrat::~Bureaucrat(){std::cout << "dest called" << std::endl;}
 
-Bureaucrat::Bureaucrat(Bureaucrat &copy)
-{
-	this->_name = copy._name;
-	this->_grade = copy._grade;
-}
+Bureaucrat::Bureaucrat(const Bureaucrat &copy):_name(copy._name), _grade(copy._grade){}
 
-Bureaucrat	&Bureaucrat::operator=(constBureaucrat &rhs)
+Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &rhs)
 {
 	if (this != &rhs)
 	{
-		this->_name = rhs._name;
 		this->_grade = rhs._grade;
 	}
 	return (*this);
@@ -56,34 +47,46 @@ int		Bureaucrat::getGrade() const
 	return (this->_grade);
 }
 
-void	Bureaucrat::incrementGrade(int i)
+void	Bureaucrat::incrementGrade()
 {
-	this->_grade -= i;
-	// if grade < 1 grade too high exception
+	if ((this->_grade - 1) < HIGHEST_GRADE)
+		throw (Bureaucrat::GradeTooHighException());
+	this->_grade--;
 }
 
-void	Bureaucrat::decrementGrade(int i)
+void	Bureaucrat::decrementGrade()
 {
-	this->_grade += i;
-	//if grede > 150 grade too low exception
-
+	if ((this->_grade + 1) > LOWEST_GRADE)
+		throw(Bureaucrat::GradeTooLowException());
+	this->_grade++;
 }
 
-Bureaucrat::signForm(Form *form)
+void  Bureaucrat::signForm(Form &form)
 {
+	std::cout << "signform called" <<std::endl;
 	try
 	{
-		form->beSigned(this);
-		std::cout << this->getName() " signed " << form->getName();
+		form.beSigned(this);
+		std::cout << this->getName() << " signed " << form.getName() <<std::endl;
 	}
 	catch(char *reason)
 	{
-		std::cout << this->getName() " couldn't sign " form->getName() << " because " << reason << std::endl;
+		std::cout << this->getName() << " couldn't sign " << form.getName() << " because " << reason << std::endl;
 	}
 }
 
 std::ostream &operator<<(std::ostream &os, Bureaucrat const&rhs)
 {
-	os << rhs._name << ", bureaucrat grade " << rhs._grade;
+	os << rhs.getName() << ", bureaucrat grade " << rhs.getGrade();
 	return (os);
+}
+
+const char	*Bureaucrat::GradeTooHighException::what() const throw()
+{
+	return ("Bureaucrat Grade too high");
+}
+
+const char *Bureaucrat::GradeTooLowException::what() const throw()
+{
+	return ("Bureaucrat Grade too low");
 }
