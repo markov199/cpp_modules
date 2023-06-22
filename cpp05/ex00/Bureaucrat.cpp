@@ -10,33 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-Bureaucrat::Bureaucrat():_name("nameless"), _grade(150){}
+#include"Bureaucrat.hpp"
+#include<iostream>
 
-Bureaucrat::Bureaucrat(std::strng name):_name(name), _grade(150){}
+Bureaucrat::Bureaucrat():_name("nameless"), _grade(150){}
 
 Bureaucrat::Bureaucrat(std::string name, int grade):_name(name)
 {
-	if (grade > 150)
-		throw (this->GradeTooHighException());
-	if (grade < 1)
-		throw (this->GradeTooLowException())
+	if (grade > LOWEST_GRADE)
+		throw (Bureaucrat::GradeTooLowException());
+	if (grade < HIGHEST_GRADE)
+		throw (Bureaucrat::GradeTooHighException());
 	_grade = grade;
 }
 
-~Bureaucrat::Bureaucrat(){}
+Bureaucrat::~Bureaucrat(){}
 
-Bureaucrat::Bureaucrat(Bureaucrat &copy)
-{
-	this->_name = copy._name;
-	this->_grade = copy._grade;
-}
+Bureaucrat::Bureaucrat(const Bureaucrat &copy):_name(copy._name), _grade(copy._grade){}
 
-Bureaucrat	&Bureaucrat::operator=(constBureaucrat &rhs)
+Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &rhs)
 {
 	if (this != &rhs)
 	{
-		this->_name = rhs._name;
-		this->_grade = rhs._grade;
+		this->_grade = rhs.getGrade();
 	}
 	return (*this);
 }
@@ -51,31 +47,32 @@ int		Bureaucrat::getGrade() const
 	return (this->_grade);
 }
 
-void	Bureaucrat::incrementGrade(int i)
+void	Bureaucrat::incrementGrade()
 {
-	this->_grade -= i;
-	// if grade < 1 grade too high exception
+	if ((this->_grade - 1) < HIGHEST_GRADE)
+		throw (Bureaucrat::GradeTooHighException());
+	this->_grade--;
 }
 
-void	Bureaucrat::decrementGrade(int i)
+void	Bureaucrat::decrementGrade()
 {
-	this->_grade += i;
-	//if grede > 150 grade too low exception
-
+	if ((this->_grade + 1) > LOWEST_GRADE)
+		throw(Bureaucrat::GradeTooLowException());
+	this->_grade++;
 }
 
 std::ostream &operator<<(std::ostream &os, Bureaucrat const&rhs)
 {
-	os << rhs._name << ", bureaucrat grade " << rhs._grade;
+	os << rhs.getName() << ", bureaucrat grade " << rhs.getGrade();
 	return (os);
 }
 
-char	*Bureaucrat::GradeTooHighException::what() const throw()
+const char	*Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return ("Grade too high");
+	return ("Bureaucrat Grade too high");
 }
 
-char *Bureaucrat::GradeTooLowException::what() const throw()
+const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return ("Grade too low ");
+	return ("Bureaucrat Grade too low");
 }
