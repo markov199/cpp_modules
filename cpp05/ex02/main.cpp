@@ -47,9 +47,9 @@ int main(void)
 		Bureaucrat bcrat2("b2", 10);
 		Bureaucrat bcrat3("b3", 10);
 		Bureaucrat bcrat4("b4", 100);
-		AForm form2("f2", 20, 100);
-		bcrat2.signForm(form2);
-		bcrat4.signForm(form2);
+		// AForm form2("f2","" 20, 100);
+		// bcrat2.signForm(form2);
+		// bcrat4.signForm(form2);
 	}
 	catch(std::exception &e)
 	{

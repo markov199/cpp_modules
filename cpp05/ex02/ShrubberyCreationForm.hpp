@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ShrubberyCreationForm_HPP
-#define ShrubberyCreationForm_HPP
+#ifndef SHRUBBERYCREATIONFORM_HPP
+#define SHRUBBERYCREATIONFORM_HPP
 
 #include<iostream>
 #include<string>
@@ -22,21 +22,17 @@
 
 class Bureaucrat;
 
-class ShrubberyCreationForm: public AFORM
+class ShrubberyCreationForm: public AForm
 {
 	private:
-		const std::string  _name;
-		bool _isSigned;
-		const int _gradeToSign;
-		const int _gradeToExec;
+		ShrubberyCreationForm();
 	
 	public:
-		ShrubberyCreationForm();
-		ShrubberyCreationForm(std::string name, int signGrade, int execGrade);
-		virtual ~ShrubberyCreationForm();
-		ShrubberyCreationForm(const ShrubberyCreationForm &copy);
+		ShrubberyCreationForm(std::string target);
+		~ShrubberyCreationForm();
+		// ShrubberyCreationForm(const ShrubberyCreationForm &copy);
 		ShrubberyCreationForm &operator=(const ShrubberyCreationForm &rhs);
-		virtual void execute(Bureaucrat const &executor) const;
+		void execute(Bureaucrat const &executor);
 };
 
 // std::ostream &operator<<(std::ostream &os, ShrubberyCreationForm *form);

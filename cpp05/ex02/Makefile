@@ -19,9 +19,9 @@ RM = rm -f
 
 NAME = forms
 
-SRCS = main.cpp Bureaucrat.cpp AForm.cpp
+SRCS = main.cpp Bureaucrat.cpp AForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp ShrubberyCreationForm.cpp
 
-INCLUDE = Bureaucrat.hpp AForm.hpp
+INCLUDE = Bureaucrat.hpp AForm.hpp RobotomyRequestForm.hpp PresidentialPardonForm.hpp ShrubberyCreationForm.hpp
 
 OBJS = $(SRCS:.cpp=.o)
 

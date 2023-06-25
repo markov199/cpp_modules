@@ -25,21 +25,28 @@ class AForm
 	private:
 
 		const std::string  _name;
+		std::string _target;
 		bool _isSigned;
 		const int _gradeToSign;
 		const int _gradeToExec;
 	
 	public:
 		AForm();
-		AForm(std::string name, int signGrade, int execGrade);
+		AForm(std::string name, std::string target, int signGrade, int execGrade);
 		virtual ~AForm();
 		AForm(const AForm &copy);
 		AForm &operator=(const AForm &rhs);
 
 		std::string getName() const;
+		std::string getTarget() const;
 		bool getIsSigned();
 		int getGradeToSign() const;
 		int getGradeToExec() const;
+
+		void beSigned(Bureaucrat *bureaucrat);
+		void setTarget(std::string target);
+		bool canExecute(Bureaucrat  const executor);
+		virtual void execute(Bureaucrat const &executor) const = 0;
 
 		class GradeTooHighException: public std::exception
 		{
@@ -56,14 +63,16 @@ class AForm
 		class FormAlreadySignedException: public std::exception
 		{
 			public:
-				const char *what () const throw();
+				const char *what() const throw();
 		};
 
-		void beSigned(Bureaucrat *bureaucrat);
-		virtual void execute(Bureaucrat const &executor) const = 0;
+		class FormUnsignedException: public  std::exception
+		{
+			public:
+				const char *what() const throw();
+		};
 };
 
 std::ostream &operator<<(std::ostream &os, AForm *form);
-static void checkGrades(int grade);
 
 #endif

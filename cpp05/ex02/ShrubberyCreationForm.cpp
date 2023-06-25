@@ -12,24 +12,19 @@
 
 #include"AForm.hpp"
 #include"Bureaucrat.hpp"
+#include"ShrubberyCreationForm.hpp"
 
 
 
-ShrubberyCreationForm::ShrubberyCreationForm():_name("nameless"), _isSigned(0),  _gradeToSign(0), _gradeToExec(0){}
-
-
-ShrubberyCreationForm::ShrubberyCreationForm(std::string name, int signGrade, int ExecGrade):_name(name), _isSigned(0), _gradeToSign(signGrade), _gradeToExec(ExecGrade)
-{
-	checkGrade(signGrade);
-	checkGrade(ExecGrade);
-}
+ShrubberyCreationForm::ShrubberyCreationForm(std::string target):AForm("Shrubberry Creation", target, 145, 137)
+{}
 
 ShrubberyCreationForm::~ShrubberyCreationForm(){}
 
-ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &copy):_name(copy.getName()), _isSigned(0), _gradeToSign(copy.getGradeToSign()), _gradeToExec(copy.getGradeToExec())
-{
+// ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &copy):_name(copy.getName()), _isSigned(0), _gradeToSign(copy.getGradeToSign()), _gradeToExec(copy.getGradeToExec())
+// {
 
-}
+// }
 
 ShrubberyCreationForm	&ShrubberyCreationForm::operator=(const ShrubberyCreationForm &rhs)
 {
@@ -38,8 +33,42 @@ ShrubberyCreationForm	&ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return (*this);
 }
 
-virtual void execute(Bureaucrat const &executor) const
+void ShrubberyCreationForm::execute(Bureaucrat const &executor)
 {
+	if (this->canExecute(executor) == 1)
+	{
+		//open file to plant an ascii tree
+/*
+							^* * * * *
+					    **        @       **
+					**  ^^	@		   	**	^^  **
+				<			**	  					>
+			<						^@^					>
+		<			^^		@				*	@		  >
+	<		**					^^		**					>
+	<		@@			**		**					**		>
+	<				**										>
+	 <						^^		@		**			   >
+	   <	**	^^		@			**		@			>
+	   	 <			@						^^	**	   >
+			<			**	^		(*)				  >
+				<				@			^^		>
+				 <			^^		*				>
+				    <							>				 
+							XXXxxXXX
+							XxxXXXXX
+							XXXXXxxX
+							XXxxxXXXX
+						   XXxxXXXXXX
+						   XXXXXXxxXX
+						   XXxXXXxXXX
+						   XXxxXXXXxX
+						  XXXxXXXXXXxX
+						  XXxXXXXXxXXX
+						  XXXxXXXxXXXXX
+						  XxxXXXXXXXXXX
+							   */
+	}
 	
 }
 

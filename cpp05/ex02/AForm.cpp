@@ -21,10 +21,10 @@ static void checkGrade(int grade)
 		throw (AForm::GradeTooHighException());
 }
 
-AForm::AForm():_name("nameless"), _isSigned(0),  _gradeToSign(0), _gradeToExec(0){}
+AForm::AForm():_name("nameless"), _target("no target"), _isSigned(0),  _gradeToSign(0), _gradeToExec(0){}
 
 
-AForm::AForm(std::string name, int signGrade, int ExecGrade):_name(name), _isSigned(0), _gradeToSign(signGrade), _gradeToExec(ExecGrade)
+AForm::AForm(std::string name, std::string target, int signGrade, int ExecGrade):_name(name), _target(target), _isSigned(0), _gradeToSign(signGrade), _gradeToExec(ExecGrade)
 {
 	checkGrade(signGrade);
 	checkGrade(ExecGrade);
@@ -63,6 +63,16 @@ int AForm::getGradeToExec() const
 	return (this->_gradeToExec);
 }
 
+std::string AForm::getTarget() const
+{
+	return (this->_target);
+}
+
+void AForm::setTarget(std::string target)
+{
+	this->_target = target;
+}
+
 const char *AForm::GradeTooHighException::what() const throw()
 {
 	return (" Form: Grade too high ** Highest grade is 1 Lowest grade is 150");
@@ -78,15 +88,28 @@ const char *AForm::FormAlreadySignedException::what() const throw()
 	return ("Form is already signed");
 }
 
+const char *AForm::FormUnsignedException::what() const throw()
+{
+	return ("Form unsigned. Cannot execute");
+}
+
 void AForm::beSigned(Bureaucrat *bureaucrat)
 {
 	if (!(this->_isSigned))
 	{
-		if (bureaucrat->getGrade() > this->getGradeToSign())
+		if (bureaucrat->getGrade() > this->_gradeToSign)
 			throw (Bureaucrat::GradeTooLowException());
 		this->_isSigned = 1;
 	}
 	throw (AForm::FormAlreadySignedException());
+}
+bool AForm::canExecute(Bureaucrat  const executor)
+{
+	if(!this->_isSigned)
+		throw(AForm::FormUnsignedException());
+	if (executor.getGrade() > this->_gradeToExec)
+		throw (Bureaucrat::GradeTooLowException());
+	return (1);
 }
 
 std::ostream &operator<<(std::ostream &os, AForm *form)
