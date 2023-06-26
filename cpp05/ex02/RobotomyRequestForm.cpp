@@ -4,7 +4,7 @@
 
 
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target):AForm("Shrubberry Creation", target, 145, 137)
+RobotomyRequestForm::RobotomyRequestForm(std::string target):AForm("Shrubberry Creation", target, 72, 45)
 {}
 
 RobotomyRequestForm::~RobotomyRequestForm(){}
