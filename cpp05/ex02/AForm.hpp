@@ -33,7 +33,7 @@ class AForm
 		AForm();
 		AForm(std::string name, std::string target, int signGrade, int execGrade);
 		virtual ~AForm();
-		AForm(AForm &copy);
+		AForm(const AForm &copy);
 		AForm &operator=(const AForm &rhs);
 
 		std::string getName() const;
@@ -44,7 +44,7 @@ class AForm
 
 		void beSigned(Bureaucrat *bureaucrat);
 		void setTarget(std::string target);
-		bool canExecute(Bureaucrat  executor) const;
+		bool canExecute(Bureaucrat  executor) const;//vomst &execuror 
 		virtual void execute(Bureaucrat const &executor) const = 0;
 
 		class GradeTooHighException: public std::exception
