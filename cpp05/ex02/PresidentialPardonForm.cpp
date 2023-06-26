@@ -4,7 +4,7 @@
 
 
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target):AForm("Shrubberry Creation", target, 145, 137)
+PresidentialPardonForm::PresidentialPardonForm(std::string target):AForm("Shrubberry Creation", target, 72, 45)
 {}
 
 PresidentialPardonForm::~PresidentialPardonForm(){}
@@ -25,7 +25,7 @@ void PresidentialPardonForm::execute(Bureaucrat const &executor)
 {
 	if (this->canExecute(executor) == 1)
 	{
-		//open file to plant an ascii tree
+		std::cout << "this->_target << " Pardonded by Zaphod Beeblebrox!! " << std::endl;
 	}
 	
 }
