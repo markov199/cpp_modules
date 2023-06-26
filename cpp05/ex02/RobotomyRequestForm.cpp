@@ -25,7 +25,14 @@ void RobotomyRequestForm::execute(Bureaucrat const &executor)
 {
 	if (this->canExecute(executor) == 1)
 	{
-		//ROBOTOMISE
+		std::cout << " LOUD DRRRRRRILLLLING NOISES" << std::endl;
+		srand(time(0));
+		if (rand() % 2)
+			std::cout << " Robotomy request failed" << std::endl;
+		else
+			std::cout << " Success !! Robotised" << std::endl;
+
+
 	}
 	
 }

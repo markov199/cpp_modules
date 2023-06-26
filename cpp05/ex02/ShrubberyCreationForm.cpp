@@ -6,10 +6,11 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:02:35 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/06/22 14:30:52 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/06/26 15:07:40 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include<fstream>
 #include"AForm.hpp"
 #include"Bureaucrat.hpp"
 #include"ShrubberyCreationForm.hpp"
@@ -21,10 +22,10 @@ ShrubberyCreationForm::ShrubberyCreationForm(std::string target):AForm("Shrubber
 
 ShrubberyCreationForm::~ShrubberyCreationForm(){}
 
-// ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &copy):_name(copy.getName()), _isSigned(0), _gradeToSign(copy.getGradeToSign()), _gradeToExec(copy.getGradeToExec())
-// {
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &copy):AForm("Shrubberry Creation", copy.getTarget(), 145, 137)
+{
 
-// }
+}
 
 ShrubberyCreationForm	&ShrubberyCreationForm::operator=(const ShrubberyCreationForm &rhs)
 {
@@ -33,44 +34,39 @@ ShrubberyCreationForm	&ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return (*this);
 }
 
-void ShrubberyCreationForm::execute(Bureaucrat const &executor)
+void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
+	std::fstream fs;
+
 	if (this->canExecute(executor) == 1)
 	{
-		//open file to plant an ascii tree
-/*
-							^* * * * *
-					    **        @       **
-					**  ^^	@		   	**	^^  **
-				<			**	  					>
-			<						^@^					>
-		<			^^		@				*	@		  >
-	<		**					^^		**					>
-	<		@@			**		**					**		>
-	<				**										>
-	 <						^^		@		**			   >
-	   <	**	^^		@			**		@			>
-	   	 <			@						^^	**	   >
-			<			**	^		(*)				  >
-				<				@			^^		>
-				 <			^^		*				>
-				    <							>				 
-							XXXxxXXX
-							XxxXXXXX
-							XXXXXxxX
-							XXxxxXXXX
-						   XXxxXXXXXX
-						   XXXXXXxxXX
-						   XXxXXXxXXX
-						   XXxxXXXXxX
-						  XXXxXXXXXXxX
-						  XXxXXXXXxXXX
-						  XXXxXXXxXXXXX
-						  XxxXXXXXXXXXX
-							   */
+		fs.open(this->getTarget() + "_shruberry", std::fstream::out | std::fstream::trunc);
+		if (!fs.good())
+			std::cerr << "Failed to open file" << std::endl;
+		fs <<
+		"              * *\n"
+		"      *    *  *\n"
+		"    *  *    *     *  *\n"
+		"  *     *    *  *    *\n"
+		" * *   *    *    *    *   *\n"
+		" *     *  *    * * .#  *   *\n"
+		" *   *     * #.  .# *   *\n"
+		"  *     \"#.  #: #\" * *    *\n"
+		" *   * * \"#. ##\"       *\n"
+		"   *       \"###\n"
+		"             \"##\n"
+		"              ##.\n"
+		"              .##:\n"
+		"              :###\n"
+		"              ;###\n"
+		"            ,####.\n";
+
+		fs.close();		 
+
+	}
 	}
 	
-}
+
 
 // std::ostream &operator<<(std::ostream &os, ShrubberyCreationForm *form)
 // {

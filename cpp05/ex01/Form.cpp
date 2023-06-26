@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 08:46:28 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/06/21 09:08:19 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/06/26 11:50:25 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,11 @@ const char *Form::FormAlreadySignedException::what() const throw()
 
 void Form::beSigned(Bureaucrat *bureaucrat)
 {
-	if (!(this->_isSigned))
-	{
-		if (bureaucrat->getGrade() > this->getGradeToSign())
-			throw (Bureaucrat::GradeTooLowException());
-		this->_isSigned = 1;
-	}
-	throw (Form::FormAlreadySignedException());
+	if ((this->_isSigned))
+		throw (Form::FormAlreadySignedException());
+	if (bureaucrat->getGrade() > this->getGradeToSign())
+		throw (Bureaucrat::GradeTooLowException());
+	this->_isSigned = 1;
 }
 
 std::ostream &operator<<(std::ostream &os, Form *form)

@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 08:46:28 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/06/22 13:41:33 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/06/26 14:51:08 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ std::string AForm::getName() const
 {
 	return (this->_name);
 }
-AForm::AForm(const AForm &copy):_name(copy.getName()), _isSigned(0), _gradeToSign(copy.getGradeToSign()), _gradeToExec(copy.getGradeToExec())
+AForm::AForm(AForm &copy):_name(copy.getName()), _isSigned(0), _gradeToSign(copy.getGradeToSign()), _gradeToExec(copy.getGradeToExec())
 {
 
 }
@@ -90,18 +90,16 @@ const char *AForm::FormAlreadySignedException::what() const throw()
 
 const char *AForm::FormUnsignedException::what() const throw()
 {
-	return ("Form unsigned. Cannot execute");
+	return ("Form unsigned.");
 }
 
 void AForm::beSigned(Bureaucrat *bureaucrat)
 {
-	if (!(this->_isSigned))
-	{
-		if (bureaucrat->getGrade() > this->_gradeToSign)
-			throw (Bureaucrat::GradeTooLowException());
-		this->_isSigned = 1;
-	}
-	throw (AForm::FormAlreadySignedException());
+	if ((this->_isSigned))
+		throw (AForm::FormAlreadySignedException());
+	if (bureaucrat->getGrade() > this->getGradeToSign())
+		throw (Bureaucrat::GradeTooLowException());
+	this->_isSigned = 1;
 }
 bool AForm::canExecute(Bureaucrat  const executor)
 {

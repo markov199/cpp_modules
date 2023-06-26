@@ -25,9 +25,8 @@ void PresidentialPardonForm::execute(Bureaucrat const &executor)
 {
 	if (this->canExecute(executor) == 1)
 	{
-		std::cout << "this->_target << " Pardonded by Zaphod Beeblebrox!! " << std::endl;
+		std::cout << this->getTarget() << " Pardonded by Zaphod Beeblebrox!! " << std::endl;
 	}
-	
 }
 
 // std::ostream &operator<<(std::ostream &os, PresidentialPardonForm *form)

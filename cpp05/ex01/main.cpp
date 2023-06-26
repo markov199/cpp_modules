@@ -20,26 +20,39 @@ void ft_title(std::string title)
  
 int main(void)
 {
-	// ft_title("Form grade too low");
-	// try
-	// {
-	// 	Form form1("f1", 200, 100);
-	// }
-	// catch (std::exception &e)
-	// {
-	// 	std::cout << e.what() << std::endl;
-	// }
+	ft_title("Form grade too low");
+	try
+	{
+		Form form1("f1", 200, 100);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 
-	// ft_title("Form grade too high");
+	ft_title("Form grade too high");
 
-	// try
-	// {
-	// 	Form form1("f1", 0, 100);
-	// }
-	// catch (std::exception &e)
-	// {
-	// 	std::cout << e.what() << std::endl;
-	// }
+	try
+	{
+		Form form1("f1", 0, 100);
+	}
+	catch (std::exception &e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+
+	ft_title("Sign form");
+	try
+	{
+		Bureaucrat b2("b2", 5);
+		Form form1("f1",20, 10);
+		b2.signForm(form1);
+	}
+	catch (std::exception &e)
+	{
+
+		std::cout << e.what() << std::endl;
+	}
 
 	ft_title("Form already signed");
 	try
@@ -53,6 +66,7 @@ int main(void)
 	}
 	catch(std::exception &e)
 	{
+
 		std::cout << e.what() << std::endl;
 	}	
 }

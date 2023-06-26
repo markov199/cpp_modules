@@ -24,3 +24,7 @@ https://en.cppreference.com/w/cpp/language/nested_types
 
 https://www.scaler.com/topics/nested-class-in-cpp/
 
+
+using srand() and rand():
+
+https://www.educative.io/answers/what-are-the-rand-and-srand-functions-in-cpp
