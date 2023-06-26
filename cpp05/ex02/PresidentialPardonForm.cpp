@@ -4,7 +4,7 @@
 
 
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target):AForm("Shrubberry Creation", target, 72, 45)
+PresidentialPardonForm::PresidentialPardonForm(std::string target):AForm("Shrubberry Creation", target, 25, 5)
 {}
 
 PresidentialPardonForm::~PresidentialPardonForm(){}
