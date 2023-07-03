@@ -10,6 +10,9 @@ Since C++ constructors do not have a return type, it is not possible to use retu
 
 The throw statement can be used to throw an C++ exception and exit the constructor code.
 
+
+https://cplusplus.com/doc/oldtutorial/exceptions/
+
 using std::boolalpha
 
 https://cplusplus.com/reference/ios/boolalpha/
@@ -28,3 +31,4 @@ https://www.scaler.com/topics/nested-class-in-cpp/
 using srand() and rand():
 
 https://www.educative.io/answers/what-are-the-rand-and-srand-functions-in-cpp
+
