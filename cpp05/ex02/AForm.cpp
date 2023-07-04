@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 08:46:28 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/06/26 14:51:08 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/06/28 15:20:35 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ std::string AForm::getName() const
 {
 	return (this->_name);
 }
-AForm::AForm(AForm &copy):_name(copy.getName()), _isSigned(0), _gradeToSign(copy.getGradeToSign()), _gradeToExec(copy.getGradeToExec())
+
+AForm::AForm(const AForm &copy):_name(copy.getName()), _isSigned(0), _gradeToSign(copy.getGradeToSign()), _gradeToExec(copy.getGradeToExec())
 {
 
 }
@@ -101,7 +102,7 @@ void AForm::beSigned(Bureaucrat *bureaucrat)
 		throw (Bureaucrat::GradeTooLowException());
 	this->_isSigned = 1;
 }
-bool AForm::canExecute(Bureaucrat  const executor)
+bool AForm::canExecute(Bureaucrat const &executor) const
 {
 	if(!this->_isSigned)
 		throw(AForm::FormUnsignedException());

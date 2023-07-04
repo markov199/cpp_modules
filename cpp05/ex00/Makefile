@@ -5,14 +5,15 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/06/19 11:39:31 by mkovoor           #+#    #+#              #
-#    Updated: 2023/06/21 08:11:28 by mkovoor          ###   ########.fr        #
+#    Created: 2023/06/21 14:27:31 by mkovoor           #+#    #+#              #
+#    Updated: 2023/06/22 10:04:08 by mkovoor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CXX = c++
 
 CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
+# CXXFLAGS = -g  -std=c++98
 
 RM = rm -f
 
@@ -27,7 +28,7 @@ OBJS = $(SRCS:.cpp=.o)
 all:    $(NAME)
 
 $(NAME): $(OBJS) $(SRCS) $(INCLUDE)
-	$(CC) $(CCFLAGS) $(OBJS) -o $(NAME)
+	$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)

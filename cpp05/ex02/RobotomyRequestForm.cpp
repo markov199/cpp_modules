@@ -1,18 +1,20 @@
+#include<ctime>
+#include<cstdlib>
 #include"AForm.hpp"
 #include"Bureaucrat.hpp"
 #include"RobotomyRequestForm.hpp"
 
 
 
-RobotomyRequestForm::RobotomyRequestForm(std::string target):AForm("Shrubberry Creation", target, 72, 45)
+RobotomyRequestForm::RobotomyRequestForm(std::string target):AForm("Robotomy Request", target, 72, 45)
 {}
 
 RobotomyRequestForm::~RobotomyRequestForm(){}
 
-// RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &copy):_name(copy.getName()), _isSigned(0), _gradeToSign(copy.getGradeToSign()), _gradeToExec(copy.getGradeToExec())
-// {
+RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm &copy):AForm("Robotomy Request", copy.getTarget(), 72, 45)
+{
 
-// }
+}
 
 RobotomyRequestForm	&RobotomyRequestForm::operator=(const RobotomyRequestForm &rhs)
 {
@@ -21,28 +23,20 @@ RobotomyRequestForm	&RobotomyRequestForm::operator=(const RobotomyRequestForm &r
 	return (*this);
 }
 
-void RobotomyRequestForm::execute(Bureaucrat const &executor)
+void RobotomyRequestForm::execute(Bureaucrat const &executor) const
 {
-	if (this->canExecute(executor) == 1)
+	this->canExecute(executor);
 	{
+		
 		std::cout << " LOUD DRRRRRRILLLLING NOISES" << std::endl;
 		srand(time(0));
-		if (rand() % 2)
-			std::cout << " Robotomy request failed" << std::endl;
+		int i = rand();		
+		if (i  % 2)
+		{
+			std::cout << " Robotomy request failed  i = " << i << std::endl;
+
+		}
 		else
-			std::cout << " Success !! Robotised" << std::endl;
-
-
-	}
-	
+			std::cout << " Success !! Robotised  i = "<< i << std::endl;
+	}	
 }
-
-// std::ostream &operator<<(std::ostream &os, RobotomyRequestForm *form)
-// {
-// 	os << std::boolalpha
-// 	<< "Form Name :       " << form->getName() << std::endl
-// 	<< "Grade to sign :   " << form->getGradeToSign() << std::endl
-// 	<< "Grade to execute: " << form->getGradeToExec() << std::endl
-// 	<< "Form signed       " << form->getIsSigned() << std::endl;
-// 	return (os);
-// }

@@ -53,6 +53,18 @@ int main(void)
 
 		std::cout << e.what() << std::endl;
 	}
+	ft_title("Grade too low to sign form");
+	try
+	{
+		Bureaucrat b2("b2", 45);
+		Form form1("f1",20, 10);
+		b2.signForm(form1);
+	}
+	catch (std::exception &e)
+	{
+
+		std::cout << e.what() << std::endl;
+	}
 
 	ft_title("Form already signed");
 	try

@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 08:13:18 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/06/22 13:44:38 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/06/28 09:43:07 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@
 #include<iostream>
 #include<string>
 #include<stdexcept>
-#include"Bureaucrat.hpp"
-
+// #include"Bureaucrat.hpp"
 class Bureaucrat;
 
 class AForm
@@ -45,7 +44,7 @@ class AForm
 
 		void beSigned(Bureaucrat *bureaucrat);
 		void setTarget(std::string target);
-		bool canExecute(Bureaucrat  const executor);
+		bool canExecute(Bureaucrat const &executor) const;
 		virtual void execute(Bureaucrat const &executor) const = 0;
 
 		class GradeTooHighException: public std::exception

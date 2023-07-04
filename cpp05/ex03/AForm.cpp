@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 08:46:28 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/06/22 13:41:33 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/04 09:22:49 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,20 +90,18 @@ const char *AForm::FormAlreadySignedException::what() const throw()
 
 const char *AForm::FormUnsignedException::what() const throw()
 {
-	return ("Form unsigned. Cannot execute");
+	return ("Form unsigned.");
 }
 
 void AForm::beSigned(Bureaucrat *bureaucrat)
 {
-	if (!(this->_isSigned))
-	{
-		if (bureaucrat->getGrade() > this->_gradeToSign)
-			throw (Bureaucrat::GradeTooLowException());
-		this->_isSigned = 1;
-	}
-	throw (AForm::FormAlreadySignedException());
+	if ((this->_isSigned))
+		throw (AForm::FormAlreadySignedException());
+	if (bureaucrat->getGrade() > this->getGradeToSign())
+		throw (Bureaucrat::GradeTooLowException());
+	this->_isSigned = 1;
 }
-bool AForm::canExecute(Bureaucrat  const executor)
+bool AForm::canExecute(Bureaucrat const &executor) const
 {
 	if(!this->_isSigned)
 		throw(AForm::FormUnsignedException());
@@ -116,6 +114,7 @@ std::ostream &operator<<(std::ostream &os, AForm *form)
 {
 	os << std::boolalpha
 	<< "Form Name :       " << form->getName() << std::endl
+	<< "Target Name:      " << form->getTarget() << std::endl
 	<< "Grade to sign :   " << form->getGradeToSign() << std::endl
 	<< "Grade to execute: " << form->getGradeToExec() << std::endl
 	<< "Form signed       " << form->getIsSigned() << std::endl;

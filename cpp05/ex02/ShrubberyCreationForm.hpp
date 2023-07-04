@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:03:04 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/06/26 15:03:20 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/06/28 09:48:29 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ class ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm(const ShrubberyCreationForm &copy);
 		ShrubberyCreationForm &operator=(const ShrubberyCreationForm &rhs);
 		~ShrubberyCreationForm();
-		virtual void execute(Bureaucrat const &executor) const;
+		void execute(Bureaucrat const &executor) const;
 };
 
 #endif

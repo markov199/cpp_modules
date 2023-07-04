@@ -6,14 +6,14 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/19 12:56:20 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/06/21 12:32:48 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/06/28 14:50:42 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"Bureaucrat.hpp"
-#include<iostream>
 
-Bureaucrat::Bureaucrat():_name("nameless"), _grade(150){}
+#include"Bureaucrat.hpp"
+
+
 
 Bureaucrat::Bureaucrat(std::string name, int grade):_name(name)
 {
@@ -26,13 +26,14 @@ Bureaucrat::Bureaucrat(std::string name, int grade):_name(name)
 
 Bureaucrat::~Bureaucrat(){}
 
-Bureaucrat::Bureaucrat(const Bureaucrat &copy):_name(copy._name), _grade(copy._grade){}
+Bureaucrat::Bureaucrat(const Bureaucrat &copy):_name(copy._name), _grade(copy._grade)
+{}
 
 Bureaucrat	&Bureaucrat::operator=(const Bureaucrat &rhs)
 {
 	if (this != &rhs)
 	{
-		this->_grade = rhs.getGrade();
+		this->_grade = rhs._grade;
 	}
 	return (*this);
 }
@@ -61,6 +62,7 @@ void	Bureaucrat::decrementGrade()
 	this->_grade++;
 }
 
+
 std::ostream &operator<<(std::ostream &os, Bureaucrat const&rhs)
 {
 	os << rhs.getName() << ", bureaucrat grade " << rhs.getGrade();
@@ -69,10 +71,10 @@ std::ostream &operator<<(std::ostream &os, Bureaucrat const&rhs)
 
 const char	*Bureaucrat::GradeTooHighException::what() const throw()
 {
-	return ("Bureaucrat Grade too high");
+	return ("Bureaucrat Grade too high: Highest grade allowed is 1");
 }
 
 const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
-	return ("Bureaucrat Grade too low");
+	return ("Bureaucrat Grade too low: Lowest grade allowed is 150");
 }

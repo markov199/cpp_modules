@@ -5,23 +5,23 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/06/21 14:27:31 by mkovoor           #+#    #+#              #
-#    Updated: 2023/07/04 14:14:05 by mkovoor          ###   ########.fr        #
+#    Created: 2023/07/04 10:24:03 by mkovoor           #+#    #+#              #
+#    Updated: 2023/07/04 10:25:54 by mkovoor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CXX = c++
 
-CXXFLAGS = -g  -std=c++98
 # CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -g  -std=c++98
 
 RM = rm -f
 
-NAME = intern
+NAME = convert
 
-SRCS = main.cpp Bureaucrat.cpp AForm.cpp RobotomyRequestForm.cpp PresidentialPardonForm.cpp ShrubberyCreationForm.cpp Intern.cpp
+SRCS = main.cpp ScalarConverter.cpp
 
-INCLUDE = Bureaucrat.hpp AForm.hpp RobotomyRequestForm.hpp PresidentialPardonForm.hpp ShrubberyCreationForm.hpp Intern.hpp
+INCLUDE = ScalarConverter.hpp
 
 OBJS = $(SRCS:.cpp=.o)
 

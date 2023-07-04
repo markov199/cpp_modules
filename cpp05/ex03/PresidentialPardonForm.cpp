@@ -4,15 +4,15 @@
 
 
 
-PresidentialPardonForm::PresidentialPardonForm(std::string target):AForm("Shrubberry Creation", target, 145, 137)
+PresidentialPardonForm::PresidentialPardonForm(std::string target):AForm("Presidential Pardon", target, 25, 5)
 {}
 
 PresidentialPardonForm::~PresidentialPardonForm(){}
 
-// PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &copy):_name(copy.getName()), _isSigned(0), _gradeToSign(copy.getGradeToSign()), _gradeToExec(copy.getGradeToExec())
-// {
+PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm &copy):AForm("Presidential Pardon", copy.getTarget(), 25, 5)
+{
 
-// }
+}
 
 PresidentialPardonForm	&PresidentialPardonForm::operator=(const PresidentialPardonForm &rhs)
 {
@@ -21,21 +21,10 @@ PresidentialPardonForm	&PresidentialPardonForm::operator=(const PresidentialPard
 	return (*this);
 }
 
-void PresidentialPardonForm::execute(Bureaucrat const &executor)
+void PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
-	if (this->canExecute(executor) == 1)
+	this->canExecute(executor);
 	{
-		//open file to plant an ascii tree
+		std::cout << this->getTarget() << " Pardonded by Zaphod Beeblebrox!! " << std::endl;
 	}
-	
 }
-
-// std::ostream &operator<<(std::ostream &os, PresidentialPardonForm *form)
-// {
-// 	os << std::boolalpha
-// 	<< "Form Name :       " << form->getName() << std::endl
-// 	<< "Grade to sign :   " << form->getGradeToSign() << std::endl
-// 	<< "Grade to execute: " << form->getGradeToExec() << std::endl
-// 	<< "Form signed       " << form->getIsSigned() << std::endl;
-// 	return (os);
-// }

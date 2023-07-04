@@ -6,10 +6,11 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/22 14:02:35 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/06/22 14:30:52 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/04 14:57:34 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include<fstream>
 #include"AForm.hpp"
 #include"Bureaucrat.hpp"
 #include"ShrubberyCreationForm.hpp"
@@ -21,10 +22,10 @@ ShrubberyCreationForm::ShrubberyCreationForm(std::string target):AForm("Shrubber
 
 ShrubberyCreationForm::~ShrubberyCreationForm(){}
 
-// ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &copy):_name(copy.getName()), _isSigned(0), _gradeToSign(copy.getGradeToSign()), _gradeToExec(copy.getGradeToExec())
-// {
+ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm &copy):AForm("Shrubberry Creation", copy.getTarget(), 145, 137)
+{
 
-// }
+}
 
 ShrubberyCreationForm	&ShrubberyCreationForm::operator=(const ShrubberyCreationForm &rhs)
 {
@@ -33,21 +34,32 @@ ShrubberyCreationForm	&ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return (*this);
 }
 
-void ShrubberyCreationForm::execute(Bureaucrat const &executor)
+void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
 {
-	if (this->canExecute(executor) == 1)
-	{
-		//open file to plant an ascii tree
-	}
-	
-}
+	std::fstream fs;
 
-// std::ostream &operator<<(std::ostream &os, ShrubberyCreationForm *form)
-// {
-// 	os << std::boolalpha
-// 	<< "Form Name :       " << form->getName() << std::endl
-// 	<< "Grade to sign :   " << form->getGradeToSign() << std::endl
-// 	<< "Grade to execute: " << form->getGradeToExec() << std::endl
-// 	<< "Form signed       " << form->getIsSigned() << std::endl;
-// 	return (os);
-// }
+	this->canExecute(executor);
+	fs.open((this->getTarget() + "_shruberry").c_str(), std::fstream::out | std::fstream::trunc);
+		if (!fs.good())
+			throw std::runtime_error("could not open file)");
+		fs <<
+		"              * *\n"
+		"      *    *  *\n"
+		"    *  *    *     *  *\n"
+		"  *     *    *  *    *\n"
+		" * *   *    *    *    *   *\n"
+		" *     *  *    * * .#  *   *\n"
+		" *   *     * #.  .# *   *\n"
+		"  *     \"#.  #: #\" * *    *\n"
+		" *   * * \"#. ##\"       *\n"
+		"   *       \"###\n"
+		"             \"##\n"
+		"              ##.\n"
+		"              .##:\n"
+		"              :###\n"
+		"              ;###\n"
+		"            ,####.\n";
+
+		fs.close();		 
+	}
+
