@@ -10,6 +10,15 @@ Since C++ constructors do not have a return type, it is not possible to use retu
 
 The throw statement can be used to throw an C++ exception and exit the constructor code.
 
+Having a try catch in constructor:
+
+https://www.oreilly.com/library/view/c-cookbook/0596007612/ch09s03.html
+
+
+Try in initializing list:
+https://www.oreilly.com/library/view/c-cookbook/0596007612/ch09s04.html
+
+
 
 https://cplusplus.com/doc/oldtutorial/exceptions/
 
