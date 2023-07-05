@@ -13,7 +13,6 @@
 CXX = c++
 
 CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
-# CXXFLAGS = -g  -std=c++98
 
 RM = rm -f
 

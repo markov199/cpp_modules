@@ -6,14 +6,13 @@
 #    By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/21 14:27:31 by mkovoor           #+#    #+#              #
-#    Updated: 2023/07/04 14:14:05 by mkovoor          ###   ########.fr        #
+#    Updated: 2023/07/05 12:25:25 by mkovoor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CXX = c++
 
-CXXFLAGS = -g  -std=c++98
-# CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
+CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
 
 RM = rm -f
 

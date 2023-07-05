@@ -38,7 +38,7 @@ int main(void)
 	ft_title("Grade too low");
 	try
 	{
-		Bureaucrat bcrat2("b2", 60);
+		Bureaucrat bcrat2("b2", 160);
 		std::cout << bcrat2 << std::endl;		
 		
 	}
