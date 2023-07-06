@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 09:34:13 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/06 12:20:57 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/06 09:57:15 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,17 @@
 #include"ScalarConverter.hpp"
 
 
-ScalarConverter::ScalarConverter(std::string inputString):_type(NDEF), _inputData(inputString){}
+ScalarConverter::ScalarConverter(std::string inputString)
+{
+	if (inputString.length() == 1 && !(isdigit(inputString.at(0))))
+	{
+		std::cout << "its a character \n";
+		_input = static_cast<int>(inputString.at(0));
+	}
+	else
+		_input = atof(inputString.c_str());
+	
+}
 
 ScalarConverter::~ScalarConverter(){}
 
@@ -88,55 +98,14 @@ ScalarConverter::operator double()
 
 void ScalarConverter::convert(std::string inputString)
 {
-	if (inputString.length() == 1)
-	{
-		if(!isdigit(inputString.at(0)))
-		{
-			std::cout << "char\n";
-			_type = CHAR;
-		}
-		else
-		{
-			std::cout << "single digir\n";
-			_type = INT;
-		}
-
-	}
-	else if (inputString.find_first_not_of("-+1234567890") == std::string::npos)
-	{
-		std::cout << "int\n";
-		_type = INT;
-	}
-	else if (inputString.find_first_of("f") != std::string::npos)
-	{
-		std::cout << "float\n";
-		_type = FLOAT;
-	}
-	else if (inputString.find_first_of(".") != std::string::npos)
-	{
-		std::cout << "double\n";
-		_type = DOUBLE;
-	}
-
-	// switch(_type)
-	// {
-	// 	case CHAR:
-	// 	{
-	// 		break;
-	// 	}
-	// 	case INT:
-	// 	{
-	// 		break;
-			
-	// 	}
-	// 	case FLOAT:
-	// 	{
-	// 		break;
-	// 	}
-	// 	case DOUBLE:
-	// 	{
-	// 		break;
-	// 	}
-	// }
 	
+	std::cout << _input << std::endl;
+	char c = *this;
+    std::cout << c <<std::endl;
+	int x = *this;
+	std::cout << x << std::endl;
+    float f =  *this;
+    std::cout << f <<std::endl;
+    double d = *this;
+    std::cout << d <<std::endl;
 }
