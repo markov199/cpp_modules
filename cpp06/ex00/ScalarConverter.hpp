@@ -15,6 +15,7 @@
 
 #include<iostream>
 #include<sstream>
+#include<cstdlib>
 
 enum dataType {NDEF, CHAR, INT, FLOAT, DOUBLE};
 
@@ -39,10 +40,6 @@ class ScalarConverter
 		operator double();
 		
 		void convert(std::string inputString);
-		void castFrom(char c);
-		void castFrom(int i);
-		void castFrom(float f);
-		void castFrom(double d);
 	
 };
 #endif
