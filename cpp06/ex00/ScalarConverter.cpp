@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 09:34:13 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/06 12:20:57 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/11 11:12:04 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,46 @@ ScalarConverter::operator double()
 	return (0) ;
 }
 
-void ScalarConverter::convert(std::string inputString)
+bool ScalarConverter::isPseudo(const std::string inputString)
+{
+	int start = 0;
+	int sign = 1;
+	if (inputString.at(0) == '+' || inputString.at(0) == '-')
+	{
+		start = 1;
+		if (inputString.at(0) == '-')
+			sign =-1;
+	}
+	if (inputString.length() - start == 3)
+	{
+		if ( start == 0 && inputString.find("nan") != std::string::npos)
+		{
+			_type = NNUM;
+			_input = std::numeric_limits<double>::quiet_NaN();
+		}		
+		if (inputString.find("inf", start) != std::string::npos)
+		{
+			_type = INF;
+			_input = std::numeric_limits<double>::infinity() * sign;
+		}
+	}
+	if (inputString.length() - start == 4)
+	{	
+		if ( start == 0 && inputString.find("nanf")!= std::string::npos)
+		{
+			_type = NNUM;
+			_input = std::numeric_limits<float>::quiet_NaN();
+		}		
+		if (inputString.find("inff", start) != std::string::npos)
+		{
+			_type = INF;
+			_input = std::numeric_limits<float>::infinity() * sign;
+		}
+	}
+	return (_type);
+}
+
+void ScalarConverter::getType(const std::string inputString)
 {
 	if (inputString.length() == 1)
 	{
@@ -83,12 +122,27 @@ void ScalarConverter::convert(std::string inputString)
 		else
 			_type = INT;
 	}
-	else if (inputString.find_first_not_of("-+1234567890") == std::string::npos)
-		_type = INT;
-	else if (inputString.find_first_of("f") != std::string::npos)
-		_type = FLOAT;
-	else if (inputString.find_first_of(".") != std::string::npos)
-		_type = DOUBLE;
+	else if (inputString.find_first_not_of("-+1234567890.f") == std::string::npos)
+	{
+		if (inputString.find_first_not_of("+-1234567890") == std::string::npos)
+			_type = INT;
+		else if (inputString.find_first_of(".") == inputString.find_last_of(".")) // only one decimal point or no decimal point
+		{
+			if (inputString.find_first_of(".") != std::string::npos && inputString.find_first_of("f") == std::string::npos) // decimal point with no f
+				_type = DOUBLE;
+				
+			else if (inputString.find_first_of("f") == inputString.find_last_of("f")) // has a single 'f'
+				_type = FLOAT;		
+		}
+	}
+	else if (!this->isPseudo(inputString))
+		_type = NDEF;
+}
+
+void ScalarConverter::convert(std::string inputString)
+{
+	getType(inputString);
+	std::cout << _type <<std::endl;
 	
 	std::cout << std::fixed << std::setprecision(2);
 	switch(_type)
@@ -98,9 +152,33 @@ void ScalarConverter::convert(std::string inputString)
 			_input = static_cast<double>(_inputData.at(0));
 			break;
 		}
-		default:
+		case INT:
 		{
 			_input = atof(_inputData.c_str());
+			break;
+		}
+		case FLOAT:
+		{
+			_input = atof(_inputData.c_str());
+			break;
+		}
+		case DOUBLE:
+		{
+			_input = atof(_inputData.c_str());
+			break;
+		}
+		case INF:
+		{
+			break;
+		}
+		case NNUM:
+		{
+			break;
+		}
+		default:
+		{
+			std::cout << "not valid input\n";
+			return ;
 		}
 	}
 		char c = *this;

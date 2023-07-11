@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:18:57 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/06 11:43:55 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/11 11:10:37 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include<sstream>
 #include<cstdlib>
 
-enum dataType {NDEF, CHAR, INT, FLOAT, DOUBLE};
+enum dataType {NDEF, CHAR, INT, FLOAT, DOUBLE, INF, NNUM};
 
 class ScalarConverter
 {
@@ -25,6 +25,8 @@ class ScalarConverter
 		double _input;
 		dataType _type;
 		std::string _inputData;
+		bool isPseudo(const std::string inputString);
+		void getType(const std::string inputString);
 
 	public:
 		ScalarConverter(std::string inputData);
@@ -39,7 +41,6 @@ class ScalarConverter
 		operator float();
 		operator double();
 		
-		void convert(std::string inputString);
-	
+		void convert(std::string inputString);	
 };
 #endif
