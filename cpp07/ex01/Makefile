@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/07/04 10:24:03 by mkovoor           #+#    #+#              #
-#    Updated: 2023/07/12 09:12:20 by mkovoor          ###   ########.fr        #
+#    Created: 2023/07/12 10:05:21 by mkovoor           #+#    #+#              #
+#    Updated: 2023/07/12 10:07:43 by mkovoor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,11 @@ CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
 
 RM = rm -f
 
-NAME = typeinfo
+NAME = iter
 
-SRCS = main.cpp Base.cpp 
+SRCS = main.cpp 
 
-INCLUDE =  Base.hpp A.hpp B.hpp C.hpp
+INCLUDE = iter.hpp
 
 OBJS = $(SRCS:.cpp=.o)
 

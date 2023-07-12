@@ -1,3 +1,8 @@
+
+https://eecs280staff.github.io/notes/22_Exceptions.html
+
+
+
 C++ destroys all objects in scope after an exception occurs, thereby reducing resource usage.
 
 

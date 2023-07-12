@@ -1,19 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   A.hpp                                              :+:      :+:    :+:   */
+/*   whatever.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 11:54:22 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/12 10:04:50 by mkovoor          ###   ########.fr       */
+/*   Created: 2023/07/12 10:03:53 by mkovoor           #+#    #+#             */
+/*   Updated: 2023/07/12 10:30:03 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<iostream>
-#include"Base.hpp"
+#ifndef WHATEVER_HPP
+#define WHATEVER_HPP
 
-class A :public Base
+template <typename T> void swap (T a, T b)
 {
+	T temp;
+
+	temp = a;
+	a = b;
+	b = temp;
 	
-};
+}
+
+template <typename T> T min (T a, T b)
+{
+	return ((a < b) ? a: b);
+}
+
+template <typename T> T max (T a, T b)
+{
+	return ((a > b) ? a: b);
+}
+
+#endif

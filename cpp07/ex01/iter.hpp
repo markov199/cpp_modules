@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   A.hpp                                              :+:      :+:    :+:   */
+/*   iter.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/11 11:54:22 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/12 10:04:50 by mkovoor          ###   ########.fr       */
+/*   Created: 2023/07/12 10:08:26 by mkovoor           #+#    #+#             */
+/*   Updated: 2023/07/12 13:28:14 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<iostream>
-#include"Base.hpp"
+#ifndef ITER_HPP
+#define ITER_HPP
 
-class A :public Base
+template <typename T> void iter (T *ptr,int len, void (*func)(T))
 {
 	
-};
+}
+#endif

@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 09:34:13 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/11 11:12:04 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/12 09:14:20 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,23 @@ std::string ScalarConverter::getInputData()
 
 ScalarConverter::operator char()
 {
-	if(_input < std::numeric_limits<char>::min() || _input > std::numeric_limits<char>::max())
-		std::cout << " char: impossible" << std::endl;
+	if (_type == NNUM)
+		std::cout << "char: impossible" << std::endl;
+	else if(_input < std::numeric_limits<char>::min() || _input > std::numeric_limits<char>::max())
+		std::cout << "char: impossible" << std::endl;
 	else if (isgraph((int)_input))
     	std::cout << "char:" << (static_cast<char>(_input)) << std::endl;
 	else
-		std::cout <<" char: cannot be displayed" << std::endl;
+		std::cout <<"char: cannot be displayed" << std::endl;
 	return (0) ;
 }
 
 ScalarConverter::operator int()
 {
-	if(_input < std::numeric_limits<int>::min() || _input > std::numeric_limits<int>::max())
-		std::cout << " int: impossible" << std::endl;
+	if (_type == NNUM)
+		std::cout << "int: impossible" << std::endl;
+	else if(_input < std::numeric_limits<int>::min() || _input > std::numeric_limits<int>::max())
+		std::cout << "int: impossible" << std::endl;
 	else
     	std::cout << "int:" << static_cast<int>(_input) << std::endl; 
 	return (0) ;
@@ -142,8 +146,6 @@ void ScalarConverter::getType(const std::string inputString)
 void ScalarConverter::convert(std::string inputString)
 {
 	getType(inputString);
-	std::cout << _type <<std::endl;
-	
 	std::cout << std::fixed << std::setprecision(2);
 	switch(_type)
 	{
@@ -185,4 +187,8 @@ void ScalarConverter::convert(std::string inputString)
 		int x = *this;
 		float f = *this;
 		double d = *this;
+		(void)x;
+		(void)f;
+		(void)d;
+		(void)c;
 }

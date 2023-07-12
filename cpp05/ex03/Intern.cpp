@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 10:30:32 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/04 14:34:21 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/11 13:16:06 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ AForm *makePresidentialPardonForm(std::string target)
 	return (new PresidentialPardonForm(target));
 }
 
-AForm *(*pfn[3])(std::string)  = {&makeShrubberyCreationForm, &makeRobotomyRequestForm, &makePresidentialPardonForm, };
+AForm *(*pfn[3])(std::string)  = {&makeShrubberyCreationForm, &makeRobotomyRequestForm, &makePresidentialPardonForm};
 
 AForm *Intern::makeForm(std::string form, std::string target)
 {
