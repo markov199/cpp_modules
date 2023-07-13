@@ -28,19 +28,22 @@ class ScalarConverter
 		bool isPseudo(const std::string inputString);
 		void getType(const std::string inputString);
 
-	public:
 		ScalarConverter(std::string inputData);
 		~ScalarConverter();
 		ScalarConverter(const ScalarConverter &copy);
 		ScalarConverter &operator=(const ScalarConverter &rhs);
 
 		std::string getInputData();
-
-		operator char();
-		operator int();
-		operator float();
-		operator double();
+		void castToChar();
+		void castToInt();
+		void castToFloat();
+		void castToDouble();
+		// operator char();
+		// operator int();
+		// operator float();
+		// operator double();
 		
-		void convert(std::string inputString);	
+	public:
+		void static convert(std::string inputString);	
 };
 #endif

@@ -42,7 +42,7 @@ std::string ScalarConverter::getInputData()
 	return (_inputData);
 }
 
-ScalarConverter::operator char()
+void ScalarConverter::castToChar()
 {
 	if (_type == NNUM)
 		std::cout << "char: impossible" << std::endl;
@@ -52,10 +52,9 @@ ScalarConverter::operator char()
     	std::cout << "char:" << (static_cast<char>(_input)) << std::endl;
 	else
 		std::cout <<"char: cannot be displayed" << std::endl;
-	return (0) ;
 }
 
-ScalarConverter::operator int()
+void ScalarConverter::castToInt()
 {
 	if (_type == NNUM)
 		std::cout << "int: impossible" << std::endl;
@@ -63,19 +62,16 @@ ScalarConverter::operator int()
 		std::cout << "int: impossible" << std::endl;
 	else
     	std::cout << "int:" << static_cast<int>(_input) << std::endl; 
-	return (0) ;
 }
 
-ScalarConverter::operator float()
+void ScalarConverter::castToFloat()
 {
     std::cout << "float: " << static_cast<float>(_input) << "f\n";
-	return (0) ;
 }
 
-ScalarConverter::operator double()
+void ScalarConverter::castToDouble()
 {
     std::cout << "double: " << static_cast<double>(_input) << std::endl;
-	return (0) ;
 }
 
 bool ScalarConverter::isPseudo(const std::string inputString)
@@ -119,6 +115,7 @@ bool ScalarConverter::isPseudo(const std::string inputString)
 
 void ScalarConverter::getType(const std::string inputString)
 {
+	_type = NDEF;
 	if (inputString.length() == 1)
 	{
 		if(!isdigit(inputString.at(0)))
@@ -145,28 +142,29 @@ void ScalarConverter::getType(const std::string inputString)
 
 void ScalarConverter::convert(std::string inputString)
 {
-	getType(inputString);
+	ScalarConverter sConverter(inputString);
+	sConverter.getType(inputString);
 	std::cout << std::fixed << std::setprecision(2);
-	switch(_type)
+	switch(sConverter._type)
 	{
 		case CHAR:
 		{
-			_input = static_cast<double>(_inputData.at(0));
+			sConverter._input = static_cast<double>(sConverter._inputData.at(0));
 			break;
 		}
 		case INT:
 		{
-			_input = atof(_inputData.c_str());
+			sConverter._input = atof(sConverter._inputData.c_str());
 			break;
 		}
 		case FLOAT:
 		{
-			_input = atof(_inputData.c_str());
+			sConverter._input = atof(sConverter._inputData.c_str());
 			break;
 		}
 		case DOUBLE:
 		{
-			_input = atof(_inputData.c_str());
+			sConverter._input = atof(sConverter._inputData.c_str());
 			break;
 		}
 		case INF:
@@ -183,12 +181,8 @@ void ScalarConverter::convert(std::string inputString)
 			return ;
 		}
 	}
-		char c = *this;
-		int x = *this;
-		float f = *this;
-		double d = *this;
-		(void)x;
-		(void)f;
-		(void)d;
-		(void)c;
+		sConverter.castToChar();
+		sConverter.castToInt();
+		sConverter.castToFloat();
+		sConverter.castToDouble();
 }
