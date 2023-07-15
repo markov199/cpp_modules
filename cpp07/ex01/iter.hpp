@@ -15,6 +15,7 @@
 
 template <typename T> void iter (T *ptr,int len, void (*func)(T))
 {
-	
+	for (int i = 0; i < len; i++)
+		func(ptr[i]);
 }
 #endif
