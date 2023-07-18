@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 10:18:57 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/11 11:10:37 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/13 10:41:29 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,7 @@ class ScalarConverter
 		void castToChar();
 		void castToInt();
 		void castToFloat();
-		void castToDouble();
-		// operator char();
-		// operator int();
-		// operator float();
-		// operator double();
-		
+		void castToDouble();		
 	public:
 		void static convert(std::string inputString);	
 };

@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:08:14 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/12 10:27:59 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/13 13:36:33 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ std::string d = "chaine2";
 ::swap(c, d);
 std::cout << "c = " << c << ", d = " << d << std::endl;
 std::cout << "min( c, d ) = " << ::min( c, d ) << std::endl;
+::swap(c, d);
 std::cout << "max( c, d ) = " << ::max( c, d ) << std::endl;
 return 0;
 }

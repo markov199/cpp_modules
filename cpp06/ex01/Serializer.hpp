@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:04:28 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/12 10:04:33 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/13 09:45:13 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ struct Data
 
 class Serializer
 {
-    public:
         Serializer();
         ~Serializer();
         Serializer(const Serializer &copy);
         Serializer &operator=(const Serializer &rhs);
-        uintptr_t serialize(Data* ptr);
-        Data* deserialize(uintptr_t raw);
+    public:
+        uintptr_t static serialize(Data* ptr);
+        Data static *deserialize(uintptr_t raw);
 };

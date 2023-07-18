@@ -6,7 +6,7 @@
 #    By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/12 10:05:21 by mkovoor           #+#    #+#              #
-#    Updated: 2023/07/12 10:07:08 by mkovoor          ###   ########.fr        #
+#    Updated: 2023/07/13 16:02:37 by mkovoor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ RM = rm -f
 NAME = array
 
 SRCS = main.cpp 
+
 INCLUDE = Array.hpp 
 
 OBJS = $(SRCS:.cpp=.o)

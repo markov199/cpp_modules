@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:53:10 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/11 11:53:19 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/13 09:48:58 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void ft_title(std::string title)
 int main()
 {
 	Data myData, *myData2;
-	Serializer ptrCast;
 	uintptr_t allPtr;
 
 	myData.i = 10;
@@ -39,11 +38,11 @@ int main()
 	std::cout << "myData,c " << myData.c << std::endl;
 	std::cout << "myData.d " << myData.d << std::endl;
 	
-	allPtr = ptrCast.serialize(&myData);
+	allPtr = Serializer::serialize(&myData);
 	std::cout << allPtr << std::endl;
-	myData2 =  ptrCast.deserialize(allPtr);
+	myData2 =  Serializer::deserialize(allPtr);
 	std::cout << myData2 << std::endl;
-	allPtr = ptrCast.serialize(&myData);
+	allPtr = Serializer::serialize(&myData);
 	std::cout << allPtr << std::endl;
 
 	ft_title("Printing after casting back");
