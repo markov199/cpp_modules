@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:08:30 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/18 07:38:15 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/18 07:38:26 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ template <typename T> void increment(T a)
 
 int main (void)
 {
-    char array[3] = {'a', 'f', 'k'}
+    char array[3] = {'a', 'f', 'k'};
     iter(array, 3, &increment);
   
 }
