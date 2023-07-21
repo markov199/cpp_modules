@@ -5,8 +5,6 @@ template <typename T> T::iterator easyfind(const T &cont, int x)
 {
   T::iterator itr;
   itr = find_first_of(cont, x);
-  if (itr == std::npos)
-    std::cout << "NO occurance of " << x << " found\n";
   return (itr);      
 }
 
