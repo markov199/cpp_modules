@@ -4,7 +4,8 @@ define SPAN_HPP
 class Span
 {
   private:
-    unsigned interger N;
+    unsigned interger _N;
+    template <typename T> *_array;
 
   public:
     Span();
