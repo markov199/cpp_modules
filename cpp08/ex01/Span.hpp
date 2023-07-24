@@ -1,21 +1,27 @@
 #ifndef SPAN_HPP
-define SPAN_HPP
-
+#define SPAN_HPP
+ #include<stdexcept>
 class Span
 {
   private:
-    unsigned interger _N;
-    template <typename T> *_array;
-
-  public:
+	int *_array;
+    unsigned int _N;
+	unsigned int _size;
     Span();
-    Span(int size);
+    
+  public:
+    Span(unsigned int size);
     ~Span();
-    Span(const &copy);
-    Span &operator=(const &rhs);
+    Span(const Span &copy);
+    Span &operator=(const Span &rhs);
     void addNumber(int num);
     unsigned int shortestSpan(void);
     unsigned int longestSpan(void);
-}
+	class invalidOperation: public std::exception
+	{
+		public:
+			const char *what() const throw();
+	};
+};
 
 #endif
