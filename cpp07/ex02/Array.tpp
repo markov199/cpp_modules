@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 08:20:44 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/22 07:20:34 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/22 11:12:16 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ template <typename T> Array<T>::Array(const Array &copy)
     {
         this->_ptr = new T[copy._size] ();
         this->_size = copy._size;
-        for (int i = 0; i < this->_size; i++)
+        for (unsigned int i = 0; i < this->_size; i++)
             this->_ptr[i] = copy._ptr[i];
     }
     catch(const std::exception& e)
@@ -54,14 +54,14 @@ template <typename T> Array<T>::Array(const Array &copy)
     }
 }
 
-template <typename T> T &Array<T>::operator[](int index) 
+template <typename T> T &Array<T>::operator[](unsigned int index) 
 {
 	if (index < 0 || index >= _size)
 		throw InvalidIndex();
 	return (_ptr[index]);                  
 }
 
-template <typename T> const T &Array<T>::operator[](int index)  const
+template <typename T> const T &Array<T>::operator[](unsigned int index)  const
 {
 	if (index < 0 || index >= _size)
 		throw InvalidIndex();
@@ -77,7 +77,7 @@ template <typename T> Array<T> &Array<T>::operator=(const Array &rhs)
         delete[] this->_ptr;
         this->_ptr = new T[rhs._size] ();
         this->_size = rhs._size;
-        for (int i = 0; i < this->_size; i++)
+        for (unsigned int i = 0; i < this->_size; i++)
             this->_ptr[i] = rhs._ptr[i];
         }
         catch(const std::exception& e)

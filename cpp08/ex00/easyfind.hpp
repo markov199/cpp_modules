@@ -1,18 +1,32 @@
 #ifndef EASYFIND_HPP
 #define EASYFIND_HPP
 
-template <typename T> T::iterator easyfind(const T &cont, int x)
+ #include<iostream>
+ #include<vector>
+ #include<array>
+ #include<iterator>
+ #include<sstream>
+ #include<algorithm>
+
+template <typename T> typename T::iterator easyfind(T &cont, int x)
 {
-  T::iterator itr;
-  itr = find_first_of(cont, x);
-  return (itr);      
+typename T::iterator itr;
+ 
+  	itr = std::find(cont.begin(), cont.end(), x);
+	if (*itr != x)
+	{
+		std::cout << "No match found for " << x << "\n";
+	}
+	else
+		std::cout << "Match found (" << x << ")\n";
+  	return (itr);      
 }
 
-template <typename T> void printElements(const T &input)
+template <typename T> void printElements(T &input) 
 {
-  T::iterator itr;
-  for(itr = t.begin; itr != t.end; itr++)
-    std::cout << *itr << << " ";
+  typename T::iterator itr;
+  for(itr = input.begin(); itr != input.end(); itr++)
+    std::cout << *itr << " ";
   std::cout << std::endl;
 }
 

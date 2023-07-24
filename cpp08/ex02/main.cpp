@@ -1,28 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iter.hpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/12 10:08:26 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/22 10:40:55 by mkovoor          ###   ########.fr       */
+/*   Created: 2023/07/24 10:17:58 by mkovoor           #+#    #+#             */
+/*   Updated: 2023/07/24 10:18:00 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef ITER_HPP
-#define ITER_HPP
-
-template <typename T> void increment(T &a)
-{
-    a++;
-}
-
-template <typename T> void iter ( T arr[], int len, void (*func) (T const &)) 
-{
-	for (int i = 0; i < len; i++)
-		func(arr[i]);
-}
-#endif
-
-// template <typename T> void iter ( T arr[], int len, void (*func) (T  &)) 

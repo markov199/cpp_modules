@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/07/24 09:14:44 by mkovoor           #+#    #+#              #
-#    Updated: 2023/07/24 09:19:51 by mkovoor          ###   ########.fr        #
+#    Created: 2023/07/24 08:33:36 by mkovoor           #+#    #+#              #
+#    Updated: 2023/07/24 08:34:12 by mkovoor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,11 @@ CXXFLAGS = -g -Wall -Wextra -Werror -std=c++98
 
 RM = rm -f
 
-NAME = span
+NAME = easyfind
 
-SRCS = main.cpp Span.cpp
+SRCS = main.cpp
 
-INCLUDE = Span.hpp
+INCLUDE = easyfind.hpp
 
 OBJS = $(SRCS:.cpp=.o)
 

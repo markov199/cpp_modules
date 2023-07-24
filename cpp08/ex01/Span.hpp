@@ -1,11 +1,12 @@
 #ifndef SPAN_HPP
 #define SPAN_HPP
  #include<stdexcept>
+ #include<vector>
 class Span
 {
   private:
-	int *_array;
     unsigned int _N;
+	std::vector<int> _array;
 	unsigned int _size;
     Span();
     
@@ -15,6 +16,8 @@ class Span
     Span(const Span &copy);
     Span &operator=(const Span &rhs);
     void addNumber(int num);
+	void fill(int x);
+	void fill(std::vector<int>::iterator start, std::vector<int>::iterator end, int x);
     unsigned int shortestSpan(void);
     unsigned int longestSpan(void);
 	class invalidOperation: public std::exception

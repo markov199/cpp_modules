@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:08:30 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/22 07:29:53 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/22 10:43:52 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void print(const T& x )
 }
 
 int main() {
-  int tab[] = { 0, 1, 2, 3, 4 };
+  int tab[] = { 0, 1, 2, 3, 4, 9, 8 };
   Awesome tab2[5];
 
-  iter( tab, 5, print< const int> );
+  iter( tab, 7, print< const int> );
   iter( tab2, 5, print<Awesome> );
 
   return 0;

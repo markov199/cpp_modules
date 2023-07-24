@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 10:08:36 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/18 10:59:58 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/22 11:09:18 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@
 template <typename T> class Array
 {
     T *_ptr;
-    int _size;
+    unsigned int _size;
 
     public:
         Array();
         Array(unsigned int size);
         Array(const Array &copy);
         Array &operator=(const Array &rhs);
-        const T &operator[](int index) const;
-        T &operator[](int index);
+        const T &operator[](unsigned int index) const;
+        T &operator[](unsigned int index);
         ~Array();
         unsigned int size() const;
         class InvalidIndex: public std::exception
