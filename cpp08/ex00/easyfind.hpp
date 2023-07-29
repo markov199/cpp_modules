@@ -3,17 +3,16 @@
 
  #include<iostream>
  #include<vector>
- #include<array>
- #include<iterator>
  #include<sstream>
+ #include<iterator>
  #include<algorithm>
 
-template <typename T> typename T::iterator easyfind(T &cont, int x)
+template <typename T> typename T::iterator easyfind(T cont, int x)
 {
 typename T::iterator itr;
  
   	itr = std::find(cont.begin(), cont.end(), x);
-	if (*itr != x)
+	if (itr == cont.end())
 	{
 		std::cout << "No match found for " << x << "\n";
 	}
