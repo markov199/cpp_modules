@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:51:22 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/26 12:15:32 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/29 13:41:41 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include<stdexcept>
 #include<cstdlib>
 #include<algorithm>
+#include<numeric>
 #include"Span.hpp"
   
 
@@ -54,14 +55,21 @@ unsigned int Span::shortestSpan(void)
 	if (_array.size() < 2)
 		throw (invalidOperation());
 	unsigned int size = _array.size();
-	int shortest = abs((_array[0] - _array[1]));
-	for (int i = 0; i <(int) size; i++)
-	{
-		for(int j = i + 1; j < (int)size; j++)
-		 	if (abs((_array[i] - _array[j])) < shortest)
-				shortest = abs((_array[i] - _array[j]));
-	}
-	return (shortest);
+	std::vector<int> diff(size, 0);
+	std::sort(_array.begin(), _array.begin() + size);
+	std::adjacent_difference(_array.begin(), _array.begin() + size, diff.begin());
+	return (*std::min_element(diff.begin(), diff.begin() + size));
+	// int shortest = abs((_array[0] - _array[1]));
+	// for (int i = 0; i <(int) size; i++)
+	// {
+	// 	for(int j = i + 1; j < (int)size; j++)
+	// 	 	if (abs((_array[i] - _array[j])) < shortest)
+	// 			shortest = abs((_array[i] - _array[j]));
+	// }
+	// return (shortest);
+
+
+
 }
 
 unsigned int Span::longestSpan(void)
@@ -81,12 +89,12 @@ void Span::fill(int x)
 
 void Span::fill(std::vector<int>::iterator start, std::vector<int>::iterator end)
 {
-	_array.assign(start, end + 1);
+	_array.assign(start, end);
 }
 
 void Span::fill(int *start, int *end)
 {
-	_array.assign(start, end + 1);
+	_array.assign(start, end);
 }
 
 const char *Span::invalidOperation::what () const throw()

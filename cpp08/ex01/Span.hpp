@@ -6,7 +6,7 @@ class Span
 {
   private:
     unsigned int _N;
-	  std::vector<int> _array;
+	std::vector<int> _array;
     Span();
     
   public:

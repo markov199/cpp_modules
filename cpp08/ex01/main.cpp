@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:51:12 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/26 07:36:57 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/07/29 13:42:13 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int main()
 	try
 	{
 
-		Span test = Span(3);
-		int num[] = {11, 2, 34};
-		test.fill(&num[0], num + 2);
+		Span test = Span(4);
+		int num[] = {11, 2, 34, 24};
+		test.fill(&num[0], num + 4);
 		std::cout << test.longestSpan() << std::endl;
 		std::cout << test.shortestSpan() << std::endl;
 		Span test1 = Span(5);
