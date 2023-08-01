@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   BitcoinExchange.hpp                                :+:      :+:    :+:   */
+/*   RPN.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 11:21:08 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/01 14:02:42 by mkovoor          ###   ########.fr       */
+/*   Created: 2023/08/01 13:53:57 by mkovoor           #+#    #+#             */
+/*   Updated: 2023/08/01 14:59:11 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BITCOIN_HPP
-#define BITCOIN_HPP
+#ifndef RPN_HPP
+#define RPN_HPP
 
 #include<iostream>
-#include<fstream>
-#include<sstream>
-#include<string>
-#include<map>
-#include<cstddef> // std::size_t
-class BitcoinExchange
+#include<stack>
+
+class RPN
 {
 	private:
-		std::map<std::string, double> _database;
+		RPN();
+		~RPN();
+		RPN(const RPN &copy);
+		RPN &operator=(const RPN &rhs);
+		static void doOperation(char c, std::stack<int> numberstack);
 
 	public:
-		BitcoinExchange();
-		~BitcoinExchange();
-		BitcoinExchange(const BitcoinExchange &copy);
-		BitcoinExchange &operator=(const BitcoinExchange &rhs);
-		void getBitcoinValue(std::string filename);
+		static void calculate(std::string expression);
 };
-
 #endif
