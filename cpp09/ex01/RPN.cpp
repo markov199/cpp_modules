@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:21:25 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/01 15:05:20 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/02 12:55:22 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,47 +28,108 @@ RPN::~RPN()
 
 RPN::RPN(const RPN &copy)
 {
-
+	this->_numberStack = copy._numberStack;
 }
 
 RPN &RPN::operator=(const RPN &rhs)
 {
-
+	if (this != &rhs)
+	{
+		this->_numberStack = rhs._numberStack;
+	}
+	return (*this);
 }
 
-void RPN::doOperation(char c, std::stack<int> numberStack)
+void RPN::doOperation(int t)
 {
 	int x, y;
-	char c;
+	
 
-	if (numberStack.size() > 1)
+	if (_numberStack.size() > 1)
 	{
-		x = numberStack.top();
-		numberStack.pop();
-		y = numberStack.top();
-		numberStack.pop();
-		
+		x = _numberStack.top();
+		_numberStack.pop();
+		y = _numberStack.top();
+		_numberStack.pop();
+		std::cout << x << ", " << y << '\n';
+		switch(t)
+		{
+			case MUL:
+			{
+				std::cout << y * x << '\n';
+				_numberStack.push(y * x);
+				break;
+			}
+			case PLUS:
+			{
+				std::cout << y + x << '\n';
+
+				_numberStack.push(y + x);
+				break;
+			}
+			case MINUS:
+			{
+				std::cout << y - x << '\n';
+
+				_numberStack.push(y - x);
+				break;
+			}
+			case DIV:
+			{
+				if( x == 0)
+				{
+					std::cerr << "Error: Division by zero\n";
+					exit(1);
+				}
+				std::cout << y / x << '\n';
+
+				_numberStack.push( y / x);
+				break;
+			}
+		}
+	}
+	else
+	{
+		std::cerr << "Invalid expression\n";
+		exit (1);
 	}
 
 }
 
 void RPN::calculate(std::string expression)
 {
-	std::stack<int> numberStack;
+	RPN calculator;
 	std::stack<int> operatorStack;
 	std::string  input;
+	float number;
+	size_t found;
+	std::string operatorString = "*+-/";
 	
 	std::stringstream ss;
 
 	ss << expression;
 	while(ss >> input)
 	{
-		if (input.find("_+*/") != std::string::npos)
+		found = input.find_first_of(operatorString);
+		if (found != std::string::npos)
 		{
-			
+			std::cout << "stack size" << calculator._numberStack.size() << '\n' ;
+			if (input.size() == 1 && calculator._numberStack.size() > 1)
+			{
+				found = operatorString.find_first_of(input.c_str());
+				calculator.doOperation(found);
+			}
+			else
+			{
+				std::cerr << "Invalid expression\n";
+				exit (1);
+			}			
 		}
-			doOperation((input.c_str()[0]), numberStack);
-
+		else 
+		{
+			number = atof(input.c_str());
+			calculator._numberStack.push(number);
+		}
 	}
 
 }

@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 13:53:57 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/01 14:59:11 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/02 12:23:16 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,16 @@
 #include<iostream>
 #include<stack>
 
+enum operatorType {MUL, PLUS, MINUS, DIV};
 class RPN
 {
 	private:
+		std::stack<int> _numberStack;
 		RPN();
 		~RPN();
 		RPN(const RPN &copy);
 		RPN &operator=(const RPN &rhs);
-		static void doOperation(char c, std::stack<int> numberstack);
+		void doOperation(int x);
 
 	public:
 		static void calculate(std::string expression);

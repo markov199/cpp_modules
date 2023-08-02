@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 12:40:41 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/01 14:14:52 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/02 12:59:34 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,3 +21,5 @@ int main(int argc, char *argv[])
 		RPN::calculate(argv[1]);
 	}
 }
+
+//check for valid input chars
