@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 11:38:15 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/04 14:35:49 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/04 14:42:05 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,14 @@ BitcoinExchange::~BitcoinExchange()
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
 {
-	this->_dataVec = copy._dataVec;
-	this->_database = copy._database;
+	this->_database = copy._database;	
 
 }
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &rhs)
 {
 	if (this != &rhs)
-	{
-		this->_dataVec = rhs._dataVec;
 		this->_database = rhs._database;
-	}
 	return (*this);
 
 	
@@ -47,6 +43,7 @@ void BitcoinExchange::getBitcoinValue(std::string filename)
 	std::string line;
 	std::string date;
 	std::string valueStr;
+	// std::map<std::string, double> dataMap;
 	std::map<std::string, double>::iterator mapItr;
 	char discard;
 	double value;
@@ -68,7 +65,6 @@ void BitcoinExchange::getBitcoinValue(std::string filename)
 		getline(input, date, ',');
 		input >> value;
 		_database[date] = value;
-		_dataVec.push_back(make_pair(date, value));
 	}
 	file.close();
 	file.open(filename);
@@ -94,10 +90,6 @@ void BitcoinExchange::getBitcoinValue(std::string filename)
 			std::cerr << "Error: " << value << " (value range betwen 0 and 1000)\n";
 			continue ;
 		}
-		for(int i = 0; i < (int)_dataVec.size(); i++)
-			if (_dataVec[i].first == date)
-			std::cout << date << " => " << value  << " = " << ((_dataVec[i].second)) << std::endl;
-
 		mapItr = _database.find(date);
 		if (mapItr == _database.end())
 			mapItr = --_database.lower_bound(date);
