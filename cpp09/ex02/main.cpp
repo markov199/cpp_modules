@@ -10,3 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include<iostream>
+#include<deque>
+#include<list>
+#include<queue>
+#include<algorithm>
+#include<sstream>
+#include<functional>
+
+
+int main(int argc, char *argv[])
+{
+    std::stringstream input;
+    float args;
+    for (int i = 1; i < argc; i++)
+    {
+        args = atof(argv[i]);
+        input << args << " ";
+    }
+    std::cout << input.str();
+}
