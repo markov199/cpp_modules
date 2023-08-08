@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 14:21:25 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/02 12:55:22 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/08 12:15:11 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ RPN &RPN::operator=(const RPN &rhs)
 	return (*this);
 }
 
-void RPN::doOperation(int t)
+int RPN::doOperation(int t)
 {
 	int x, y;
 	
@@ -51,28 +51,22 @@ void RPN::doOperation(int t)
 		_numberStack.pop();
 		y = _numberStack.top();
 		_numberStack.pop();
-		std::cout << x << ", " << y << '\n';
 		switch(t)
 		{
 			case MUL:
 			{
-				std::cout << y * x << '\n';
 				_numberStack.push(y * x);
-				break;
+				return(_numberStack.top());
 			}
 			case PLUS:
 			{
-				std::cout << y + x << '\n';
-
 				_numberStack.push(y + x);
-				break;
+				return(_numberStack.top());
 			}
 			case MINUS:
 			{
-				std::cout << y - x << '\n';
-
 				_numberStack.push(y - x);
-				break;
+				return(_numberStack.top());
 			}
 			case DIV:
 			{
@@ -81,28 +75,24 @@ void RPN::doOperation(int t)
 					std::cerr << "Error: Division by zero\n";
 					exit(1);
 				}
-				std::cout << y / x << '\n';
-
 				_numberStack.push( y / x);
-				break;
+				return(_numberStack.top());
 			}
 		}
 	}
-	else
-	{
 		std::cerr << "Invalid expression\n";
 		exit (1);
-	}
-
+	
 }
 
-void RPN::calculate(std::string expression)
+int RPN::calculate(std::string expression)
 {
 	RPN calculator;
 	std::stack<int> operatorStack;
 	std::string  input;
 	float number;
 	size_t found;
+	int answer;
 	std::string operatorString = "*+-/";
 	
 	std::stringstream ss;
@@ -113,11 +103,10 @@ void RPN::calculate(std::string expression)
 		found = input.find_first_of(operatorString);
 		if (found != std::string::npos)
 		{
-			std::cout << "stack size" << calculator._numberStack.size() << '\n' ;
 			if (input.size() == 1 && calculator._numberStack.size() > 1)
 			{
 				found = operatorString.find_first_of(input.c_str());
-				calculator.doOperation(found);
+				answer = calculator.doOperation(found);
 			}
 			else
 			{
@@ -131,5 +120,5 @@ void RPN::calculate(std::string expression)
 			calculator._numberStack.push(number);
 		}
 	}
-
+	return (answer);
 }
