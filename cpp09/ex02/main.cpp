@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 09:44:00 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/08 14:29:36 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/09 14:58:33 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ int main(int argc, char *argv[])
         args = atof(argv[i]);
 		inputVec.push_back(args);
     }
+	// if (std::is_sorted(inputVec.begin(), inputVec.end()))
+	// 	std::cout <<" input sorted\n";
+	// else 
+	// 	std::cout << " input Not sorted\n";
 	for (int i = 1; i < argc - 1; i +=2)
 	{
 		if (inputVec[i] < inputVec[i - 1])
@@ -54,9 +58,6 @@ int main(int argc, char *argv[])
 		else
 			pairedVec.push_back(std::make_pair(inputVec[i - 1], inputVec[i]));
 	}
-	std::cout << "\npaired vector\n";
-	for (int i = 0; i < numOfPairs; i++)
-			std::cout << pairedVec[i].first << ',' <<  pairedVec[i].second << " ";
 	sort (pairedVec.begin(), pairedVec.end(), comparePair);
 	
 	for (int i = 0; i < numOfPairs; i++)
@@ -75,35 +76,24 @@ int main(int argc, char *argv[])
 		}
 	}
 	pairedVecIt = pairedVec.begin();
-	int sorted = 1;
-
-		int index = *jacobsthalSequence;
-		while (int index = *jacobsthalSequence;index < numOfPairs; index = *(jacobsthalSequence++))
-		{
-			int i = index;
-			while (sorted  < )
-			{
-				std::cout <<  " \ninsert this" << (pairedVecIt + i + 1 )->first << " ??\n";
-				myset.insert(myset.find((pairedVecIt + i)->second), (pairedVecIt + index + 1 )->first) ;
-				i--;
-			}
-			sorted = index;
-		}
-		while (sorted < numOfPairs)
-		{
-			
-		}
-	// {
-	// 	int index = 0;
-	// 	pairedvecIt + jacobsthalSequence[0]
-		
-	// }
-	std::cout << " \nmainset\n";
+	int sorted = 0;
+	for (int j = 0; jacobsthalSequence[j] - 1 < numOfPairs; j++)
+	{
+		int index = jacobsthalSequence[j] - 1;
+		for (int i = index; i > sorted; i--)
+			myset.insert(myset.lower_bound((pairedVecIt + i)->first), (pairedVecIt + i)->first);
+		sorted = index;
+	}
+	while (sorted < numOfPairs)
+	{
+		myset.insert(myset.lower_bound((pairedVecIt + sorted)->first), (pairedVecIt + sorted)->first);
+		sorted ++;
+	}
+	if ((argc - 1) / 2)
+		myset.insert(inputVec[argc - 2]);
+	std::cout << " \n*****Sorted Series *******\n";
 	for (itr = myset.begin(); itr != myset.end(); itr++)
 		std::cout << *itr << " ";
-	std::cout << "\n sorted paired vector\n";
-	for (int i = 0; i < numOfPairs; i++)
-			std::cout << pairedVec[i].first << ',' <<  pairedVec[i].second << " ";
 }
 
 
