@@ -18,7 +18,7 @@
 #include<cstddef> // std::size_t
 #include"BitcoinExchange.hpp"
 
-// .txt files? and valid dates
+// .txt files? 
 
 int main (int argc, char *argv[])
 {

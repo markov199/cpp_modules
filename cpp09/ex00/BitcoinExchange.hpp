@@ -18,18 +18,24 @@
 #include<sstream>
 #include<string>
 #include<map>
+#include<cstdlib> //atof func
 #include<cstddef> // std::size_t
 class BitcoinExchange
 {
 	private:
-		std::map<std::string, double> _database;		
+		std::map<std::string, double> _database;
+		bool checkDate(std::string date);
+		bool isLeapYear(int year);
+
 
 	public:
 		BitcoinExchange();
 		~BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange &copy);
 		BitcoinExchange &operator=(const BitcoinExchange &rhs);
+
 		void getBitcoinValue(std::string filename);
+
 };
 
 #endif

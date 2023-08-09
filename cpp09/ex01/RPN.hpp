@@ -14,6 +14,7 @@
 #define RPN_HPP
 
 #include<iostream>
+#include<cstdlib>
 #include<stack>
 
 enum operatorType {MUL, PLUS, MINUS, DIV};

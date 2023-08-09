@@ -18,7 +18,12 @@ int main(int argc, char *argv[])
 {
 	if (argc == 2)
 	{
-		std::cout << RPN::calculate(argv[1]);
+		std::string input(argv[1]);
+		if (input.find_first_not_of("0123456789+*/- ") == std::string::npos)
+			std::cout << RPN::calculate(argv[1]) << '\n';
+		else
+			std::cerr << "Error\n";
+
 	}
 }
 

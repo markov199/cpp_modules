@@ -76,6 +76,7 @@ int RPN::doOperation(int t)
 					exit(1);
 				}
 				_numberStack.push( y / x);
+				std::cout << "div " << y << " by " << x << '\n';
 				return(_numberStack.top());
 			}
 		}
@@ -120,5 +121,8 @@ int RPN::calculate(std::string expression)
 			calculator._numberStack.push(number);
 		}
 	}
-	return (answer);
+	if(calculator._numberStack.size() == 1)
+		return (answer);
+	std::cerr << "invalid expression\n";
+		return (-1);
 }
