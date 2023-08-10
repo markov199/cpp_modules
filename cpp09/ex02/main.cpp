@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 09:44:00 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/09 14:58:33 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/10 10:58:24 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,12 @@ int main(int argc, char *argv[])
         args = atof(argv[i]);
 		inputVec.push_back(args);
     }
+
 	// if (std::is_sorted(inputVec.begin(), inputVec.end()))
 	// 	std::cout <<" input sorted\n";
 	// else 
 	// 	std::cout << " input Not sorted\n";
+	
 	for (int i = 1; i < argc - 1; i +=2)
 	{
 		if (inputVec[i] < inputVec[i - 1])
@@ -95,5 +97,3 @@ int main(int argc, char *argv[])
 	for (itr = myset.begin(); itr != myset.end(); itr++)
 		std::cout << *itr << " ";
 }
-
-
