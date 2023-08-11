@@ -6,5 +6,7 @@ the jot command:
 
 https://docstore.mik.ua/orelly/unix/upt/ch45_11.htm
 
+https://www.linkedin.com/pulse/c-stl-containers-choose-your-wisely-pratik-parvati
+
 
 
