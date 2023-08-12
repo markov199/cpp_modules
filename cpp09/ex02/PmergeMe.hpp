@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:50:39 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/10 14:58:33 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/12 11:49:36 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include<cstdlib>
 # include<utility>
 # include<sstream>
+#include<unordered_set>
 # include<algorithm>
 # include<functional>
 # include<vector>
@@ -33,7 +34,7 @@ class PmergeMe
 	private:
 		std::vector<int> inputVec;
 		std::vector<std::pair<int, int> > pairedVec;
-		std::set<int> myset;
+		std::unordered_set<int> myset;
 		std::vector<int> myVector;
 		int numOfArgs;
 
@@ -44,7 +45,7 @@ class PmergeMe
 		PmergeMe &operator=(const PmergeMe &rhs);
 		void FjSort();
 		void FjSortSet();
-		// void FjSortVector();
+		void FjSortVector();
 		static bool comparePair(const std::pair<int, int> &p1, const std::pair<int, int> &p2);
 };
 

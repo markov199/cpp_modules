@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 11:38:15 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/04 14:42:05 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/10 14:00:24 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ void BitcoinExchange::getBitcoinValue(std::string filename)
 	std::map<std::string, double>::iterator mapItr;
 	char discard;
 	double value;
-	std::stringstream input;
-	
+	std::stringstream input;	
 
 	file.open("data2.csv");
 	if(!file)
