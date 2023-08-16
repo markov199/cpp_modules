@@ -17,7 +17,7 @@ BitcoinExchange::BitcoinExchange()
 
 }
 
-BitcoinExchange::~BitcoinExchange()
+BitcoinExchange::~BitcoinExchange():_database()
 {
 
 }
@@ -37,20 +37,20 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &rhs)
 bool BitcoinExchange::checkDate(std::string date)
 {
 	std::stringstream ss(date);
-	std::string token;
+	// std::string token;
 	int year, month, day;
+	char *ptrend;
 
-	getline(ss, token, '-');
-	year = atof(token.c_str());
-	getline(ss, token, '-');
-	month = atof(token.c_str());
+	// getline(ss, token, '\n');
+	year = strtod(date, &ptrend);
+	month = strtod(date, &ptrend);
 	if (month < 1 || month > 12)
 	{
 		std::cerr << "Error not valid month " << month << '\n';
 		return(0);
 	}
 	getline(ss, token, '-');
-	day = atof(token.c_str());
+	day =  strtod(date, &ptrend);
 	if (day > 31 || ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30))
 	{
 		std::cerr << "error\n";
@@ -105,7 +105,6 @@ void BitcoinExchange::getBitcoinValue(std::string filename)
 		input.clear();
 		input << line;
 		getline(input, date, ',');
-		checkDate(date);
 		input >> value;
 		_database[date] = value;
 	}
@@ -133,6 +132,7 @@ void BitcoinExchange::getBitcoinValue(std::string filename)
 			std::cerr << "Error: " << value << " (value range betwen 0 and 1000)\n";
 			continue ;
 		}
+		checkDate(date);
 		mapItr = _database.find(date);
 		if (mapItr == _database.end())
 			mapItr = --_database.lower_bound(date); // find and lower_bound return bidirectional ierator in map
