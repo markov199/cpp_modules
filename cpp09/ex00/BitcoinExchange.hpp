@@ -23,7 +23,7 @@
 class BitcoinExchange
 {
 	private:
-		std::map<std::string, double> _database;
+		std::map<std::string, double> _database; // add input file as varible;
 		bool checkDate(std::string date);
 		bool isLeapYear(int year);
 
