@@ -30,6 +30,7 @@ class BitcoinExchange
 
 	public:
 		BitcoinExchange();
+		BitcoinExchange(std::string filename);
 		~BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange &copy);
 		BitcoinExchange &operator=(const BitcoinExchange &rhs);
