@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 11:38:15 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/25 10:32:29 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/25 10:44:45 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,12 @@ BitcoinExchange::BitcoinExchange(std::string inputfile):_database(), _inputfile(
 	this->getBitcoinValue();
 }
 
-BitcoinExchange::~BitcoinExchange()
+BitcoinExchange::BitcoinExchange(std::string inputfile):_database(), _inputfile(inputfile)
+{
+	this->getBitcoinValue();
+}
+
+BitcoinExchange::~BitcoinExchange():_database()
 {
 
 }
@@ -46,13 +51,13 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &rhs)
 bool BitcoinExchange::checkDate(std::string date)
 {
 	std::stringstream ss(date);
-	std::string token;
+	// std::string token;
 	int year, month, day;
+	char *ptrend;
 
-	getline(ss, token, '-');
-	year = atof(token.c_str());
-	getline(ss, token, '-');
-	month = atof(token.c_str());
+	// getline(ss, token, '\n');
+	year = strtod(date, &ptrend);
+	month = strtod(date, &ptrend);
 	if (month < 1 || month > 12)
 		return(0);
 	getline(ss, token, '-');
@@ -60,6 +65,10 @@ bool BitcoinExchange::checkDate(std::string date)
 	if (day < 1 || day > 31)
 		return (0);
 	if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
+	day =  strtod(date, &ptrend);
+	if (day > 31 || ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30))
+	{
+		std::cerr << "error\n";
 		return (0);
 	if (month == 2)
 	{
