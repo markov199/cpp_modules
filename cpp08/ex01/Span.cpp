@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 13:51:22 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/07/29 14:06:34 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/15 15:25:22 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 Span::Span():_N(0)
 {}
 
-Span::Span(unsigned int size):_N(size)
+Span::Span(unsigned int size):_N(size), _array(size)
 {}
 
 Span::~Span()
@@ -29,7 +29,8 @@ Span::~Span()
 
 Span::Span(const Span &copy)
 {
-	_array.assign(copy._array.begin(), copy._array.end());
+	*this = copy;
+	// _array.assign(copy._array.begin(), copy._array.end());
 }
 
 Span &Span::operator=(const Span &rhs)

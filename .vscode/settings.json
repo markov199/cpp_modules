@@ -70,6 +70,9 @@
 		"ratio": "cpp",
 		"stack": "cpp",
 		"list": "cpp",
-		"map": "cpp"
+		"map": "cpp",
+		"__tree": "cpp",
+		"queue": "cpp",
+		"set": "cpp"
 	}
 }

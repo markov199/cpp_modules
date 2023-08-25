@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 07:05:23 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/03/22 07:05:34 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/15 14:23:31 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ DiamondTrap::DiamondTrap():ClapTrap(), ScavTrap(), FragTrap()
     std::cout << "Default constructor for DiamondTrap called" << std::endl;
 }
 
-DiamondTrap::DiamondTrap(std::string const &name) :ClapTrap(), FragTrap(), ScavTrap()
-{
+DiamondTrap::DiamondTrap(std::string const &name) :ClapTrap(name), FragTrap(), ScavTrap()
+{ 
     std::cout << "Paramaterized constructor for DiamondTrap called" << std::endl;
 	_name = name;
     ClapTrap::_name = name + "_clap_name";
