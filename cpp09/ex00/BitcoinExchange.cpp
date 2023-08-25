@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 11:38:15 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/25 10:44:45 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/25 11:26:27 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,7 @@ BitcoinExchange::BitcoinExchange(std::string inputfile):_database(), _inputfile(
 	this->getBitcoinValue();
 }
 
-BitcoinExchange::BitcoinExchange(std::string inputfile):_database(), _inputfile(inputfile)
-{
-	this->getBitcoinValue();
-}
-
-BitcoinExchange::~BitcoinExchange():_database()
+BitcoinExchange::~BitcoinExchange()
 {
 
 }
@@ -51,13 +46,13 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &rhs)
 bool BitcoinExchange::checkDate(std::string date)
 {
 	std::stringstream ss(date);
-	// std::string token;
+	std::string token;
 	int year, month, day;
-	char *ptrend;
 
-	// getline(ss, token, '\n');
-	year = strtod(date, &ptrend);
-	month = strtod(date, &ptrend);
+	getline(ss, token, '-');
+	year = atof(token.c_str());
+	getline(ss, token, '-');
+	month = atof(token.c_str());
 	if (month < 1 || month > 12)
 		return(0);
 	getline(ss, token, '-');
@@ -65,10 +60,6 @@ bool BitcoinExchange::checkDate(std::string date)
 	if (day < 1 || day > 31)
 		return (0);
 	if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
-	day =  strtod(date, &ptrend);
-	if (day > 31 || ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30))
-	{
-		std::cerr << "error\n";
 		return (0);
 	if (month == 2)
 	{
@@ -107,13 +98,14 @@ void BitcoinExchange::getBitcoinValue() throw()
 		{
 			std::cout << "Please provide an input file\n";
 			std::cin >> _inputfile;
-		}			
+		}
+			
 		file.open(_inputfile.c_str());
 		if (!file)
 			throw ("Error in opening input file");
 		getline(file, line); // to skip header
 		while(getline(file, line))
-		{ 
+		{
 			input.str("");
 			input.clear();
 			input << line;
@@ -128,22 +120,23 @@ void BitcoinExchange::getBitcoinValue() throw()
 				std::cerr << "Error: INVALID DATE " << date << std::endl;
 				continue ;
 			}
-			if (value < 0 || value > 1000)
 			{
-				std::cerr << "Error: BAD VALUE " << value << " (valid value range betwen 0 and 1000)\n";
-				continue ;
-			}
-			mapItr = _database.find(date);
-			if (mapItr == _database.end())
-			{
-				if(_database.lower_bound(date) == _database.begin())
-					std::cout << "Error: data for "<< date << " does not exist. Dates before Jan 03 2009 are invalid\nOn 3 January 2009, the bitcoin network was created when Nakamoto mined the starting block of the chain, known as the genesis block.\n";
-				else
+				if (value < 0 || value > 1000)
 				{
-					mapItr = --_database.lower_bound(date); // find and lower_bound return bidirectional ierator in map
+					std::cerr << "Error: BAD VALUE " << value << " (valid value range betwen 0 and 1000)\n";
+					continue ;
 				}
-			}		
+				mapItr = _database.find(date);
+				if (mapItr == _database.end())
+				{
+					if(_database.lower_bound(date) == _database.begin())
+						std::cout << "Error: data for "<< date << " does not exist. Dates before Jan 03 2009 are invalid\nOn 3 January 2009, the bitcoin network was created when Nakamoto mined the starting block of the chain, known as the genesis block.\n";
+
+					else
+						mapItr = --_database.lower_bound(date); // find and lower_bound return bidirectional ierator in map
+				}
 			std::cout << date << " => " << value  << " = " << (value * (mapItr->second)) << std::endl;
+			}			
 		}
 	}
 	catch (const char * error) 
