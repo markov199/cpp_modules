@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/04 09:44:00 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/10 10:58:24 by mkovoor          ###   ########.fr       */
+/*   Created: 2023/08/10 09:40:52 by mkovoor           #+#    #+#             */
+/*   Updated: 2023/08/17 14:36:33 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 # include<iostream>
 #include<utility>
@@ -20,80 +21,27 @@
 # include<algorithm>
 # include<sstream>
 # include<functional>
+# include"PmergeMe.hpp"
 
-bool comparePair(const std::pair<int, int> &p1, const std::pair<int, int> &p2)
-{
-	return (p1.second < p2.second);
-}
+
 
 int main(int argc, char *argv[])
 {
-	int jacobsthalSequence[] = {3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461};
+	
 	std::vector<int> inputVec;
-	std::vector<int>::iterator vecIt;
-	std::vector<std::pair<int, int> > pairedVec;
-	std::vector<std::pair<int, int> >::iterator pairedVecIt;
-	
-	std::set<int> myset;
-	std::set<int>::iterator itr;
-	std::pair<std::set<int>::iterator, bool> ret;
-
     float args;
-	int numOfPairs;
-	numOfPairs =(argc - 1) / 2;
-	std::cout << numOfPairs << "pairs\n";
-    for (int i = 1; i < argc; i++)
-    {
-        args = atof(argv[i]);
-		inputVec.push_back(args);
-    }
-
-	// if (std::is_sorted(inputVec.begin(), inputVec.end()))
-	// 	std::cout <<" input sorted\n";
-	// else 
-	// 	std::cout << " input Not sorted\n";
 	
-	for (int i = 1; i < argc - 1; i +=2)
+	if(argc > 2)
 	{
-		if (inputVec[i] < inputVec[i - 1])
-			pairedVec.push_back(std::make_pair(inputVec[i], inputVec[i - 1]));
-		else
-			pairedVec.push_back(std::make_pair(inputVec[i - 1], inputVec[i]));
-	}
-	sort (pairedVec.begin(), pairedVec.end(), comparePair);
-	
-	for (int i = 0; i < numOfPairs; i++)
-	{
-		if ( i == 0)
+		for (int i = 1; i < argc; i++)
 		{
-			ret = myset.insert(pairedVec[i].first);
-			ret = myset.insert(pairedVec[i].second);			
+			args = atof(argv[i]);
+			inputVec.push_back(args);
 		}
-		else
-			ret = myset.insert(pairedVec[i].second);
-		if (ret.second == 0)
-		{
-			std::cout << "Error: duplicate elements in list not allowed\n";
-			exit (1);
-		}
+		PmergeMe fjSort(inputVec);
+		fjSort.fjSort();
 	}
-	pairedVecIt = pairedVec.begin();
-	int sorted = 0;
-	for (int j = 0; jacobsthalSequence[j] - 1 < numOfPairs; j++)
-	{
-		int index = jacobsthalSequence[j] - 1;
-		for (int i = index; i > sorted; i--)
-			myset.insert(myset.lower_bound((pairedVecIt + i)->first), (pairedVecIt + i)->first);
-		sorted = index;
-	}
-	while (sorted < numOfPairs)
-	{
-		myset.insert(myset.lower_bound((pairedVecIt + sorted)->first), (pairedVecIt + sorted)->first);
-		sorted ++;
-	}
-	if ((argc - 1) / 2)
-		myset.insert(inputVec[argc - 2]);
-	std::cout << " \n*****Sorted Series *******\n";
-	for (itr = myset.begin(); itr != myset.end(); itr++)
-		std::cout << *itr << " ";
+	else
+		std::cout << "Wrong number of arguments. Please enter in following format\n./PmergeMe num1 num2 [...]";
 }
+

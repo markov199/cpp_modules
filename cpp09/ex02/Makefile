@@ -6,20 +6,19 @@
 #    By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/04 13:50:45 by mkovoor           #+#    #+#              #
-#    Updated: 2023/08/14 08:52:08 by mkovoor          ###   ########.fr        #
+#    Updated: 2023/08/21 15:02:24 by mkovoor          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CXX = c++
 
-CXXFLAGS = -g -Werror -Wall -Wextra -std=c++98
-# CXXFLAGS = -g  
+CXXFLAGS = -g -Werror -Wall -Wextra 
 
 RM = rm -f
 
 NAME = PmergeMe
 
-SRCS = main2.cpp  PmergeMe.cpp
+SRCS = main.cpp  PmergeMe.cpp
 
 INCLUDE = PmergeMe.hpp
 

@@ -6,15 +6,20 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/01 11:38:15 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/10 14:00:24 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/25 10:32:29 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange()
+BitcoinExchange::BitcoinExchange():_database(), _inputfile()
 {
 
+}
+
+BitcoinExchange::BitcoinExchange(std::string inputfile):_database(), _inputfile(inputfile)
+{
+	this->getBitcoinValue();
 }
 
 BitcoinExchange::~BitcoinExchange()
@@ -25,12 +30,16 @@ BitcoinExchange::~BitcoinExchange()
 BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
 {
 	this->_database = copy._database;
+	this->_inputfile = copy._inputfile;
 }
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &rhs)
 {
 	if (this != &rhs)
+	{
 		this->_database = rhs._database;
+		this->_inputfile = rhs._inputfile;
+	}
 	return (*this);
 }
 
@@ -45,26 +54,18 @@ bool BitcoinExchange::checkDate(std::string date)
 	getline(ss, token, '-');
 	month = atof(token.c_str());
 	if (month < 1 || month > 12)
-	{
-		std::cerr << "Error not valid month " << month << '\n';
 		return(0);
-	}
 	getline(ss, token, '-');
 	day = atof(token.c_str());
-	if (day > 31 || ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30))
-	{
-		std::cerr << "error\n";
+	if (day < 1 || day > 31)
 		return (0);
-	}
+	if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 30)
+		return (0);
 	if (month == 2)
 	{
 		if ((isLeapYear(year) && day > 29) || (!isLeapYear(year) && day > 28))
-		{
-			std::cerr << "Error\n";
 			return (0);
-		}
 	}
-	// std::cout << "data" << year << " " << month << " " << day << " \n";
 	return (1);
 }
 
@@ -80,24 +81,137 @@ bool BitcoinExchange::isLeapYear(int year)
 	return (0);
 }
 
-void BitcoinExchange::getBitcoinValue(std::string filename)
+void BitcoinExchange::getBitcoinValue() throw()
 {
-	std::ifstream file , file2;
+	std::ifstream file;
 	std::string line;
 	std::string date;
-	std::string valueStr;
-	// std::map<std::string, double> dataMap;
-	std::map<std::string, double>::iterator mapItr;
 	char discard;
 	double value;
-	std::stringstream input;	
+	std::map<std::string, double>::iterator mapItr;
+	std::stringstream input;
 
-	file.open("data2.csv");
-	if(!file)
+	try
 	{
-		std::cerr << "Unable to open database\n";
-		exit(1);
+		getDataBase();
+		if (_inputfile.empty())
+		{
+			std::cout << "Please provide an input file\n";
+			std::cin >> _inputfile;
+		}			
+		file.open(_inputfile.c_str());
+		if (!file)
+			throw ("Error in opening input file");
+		getline(file, line); // to skip header
+		while(getline(file, line))
+		{ 
+			input.str("");
+			input.clear();
+			input << line;
+			input >> date >> discard >> value;
+			if (input.fail())
+			{
+				std::cerr << "Error: BAD INPUT " << line << std::endl;
+				continue ;
+			}
+			if (!checkDate(date))
+			{
+				std::cerr << "Error: INVALID DATE " << date << std::endl;
+				continue ;
+			}
+			if (value < 0 || value > 1000)
+			{
+				std::cerr << "Error: BAD VALUE " << value << " (valid value range betwen 0 and 1000)\n";
+				continue ;
+			}
+			mapItr = _database.find(date);
+			if (mapItr == _database.end())
+			{
+				if(_database.lower_bound(date) == _database.begin())
+					std::cout << "Error: data for "<< date << " does not exist. Dates before Jan 03 2009 are invalid\nOn 3 January 2009, the bitcoin network was created when Nakamoto mined the starting block of the chain, known as the genesis block.\n";
+				else
+				{
+					mapItr = --_database.lower_bound(date); // find and lower_bound return bidirectional ierator in map
+				}
+			}		
+			std::cout << date << " => " << value  << " = " << (value * (mapItr->second)) << std::endl;
+		}
 	}
+	catch (const char * error) 
+	{
+    	std::cerr << error << std::endl;
+	}
+}
+
+void BitcoinExchange::getBitcoinValue(std::string inputfile) throw()
+{
+	std::ifstream file;
+	std::string line, date;
+	char discard;
+	double value;
+	std::map<std::string, double>::iterator mapItr;
+	std::stringstream input;
+
+	try
+	{
+		getDataBase();
+		file.open(inputfile.c_str());
+		if (!file)
+			throw ("Error in opening input file");
+		getline(file, line); // to skip header
+		while(getline(file, line))
+		{
+			input.str("");
+			input.clear();
+			input << line;
+			input >> date >> discard >> value;
+			if (input.fail())
+			{
+				std::cerr << "Error: BAD INPUT " << line << std::endl;
+				continue ;
+			}
+			if (!checkDate(date))
+			{
+				std::cerr << "Error: INVALID DATE " << date << std::endl;
+				continue ;
+			}		
+			if (value < 0 || value > 1000)
+			{
+				std::cerr << "Error: BAD VALUE " << value << " (valid value range betwen 0 and 1000)\n";
+				continue ;
+			}
+			mapItr = _database.find(date);
+			if (mapItr == _database.end())
+			{
+			 	if(_database.lower_bound(date) == _database.begin())
+					std::cout << "Error: data for "<< date << " does not exist. Dates before Jan 03 2009 are invalid\nOn 3 January 2009, the bitcoin network was created when Nakamoto mined the starting block of the chain, known as the genesis block.\n";
+
+				else
+				{
+					mapItr = --_database.lower_bound(date); // find and lower_bound return bidirectional ierator in map
+				}
+			}
+			std::cout << date << " => " << value  << " = " << (value * (mapItr->second)) << std::endl;
+		}
+	}
+	catch (const char * error) 
+	{
+    	std::cerr << error << std::endl;
+	}
+}
+
+void BitcoinExchange::getDataBase()
+{
+	std::ifstream file;
+	std::string line;
+	std::string date;
+	std::map<std::string, double>::iterator mapItr;
+	double value;
+	std::stringstream input;
+	
+	file.open("data.csv");
+	if (!file)
+		throw("Unable to open database file");
 	getline(file, line);
 	while(getline(file, line))
 	{
@@ -105,37 +219,8 @@ void BitcoinExchange::getBitcoinValue(std::string filename)
 		input.clear();
 		input << line;
 		getline(input, date, ',');
-		checkDate(date);
 		input >> value;
 		_database[date] = value;
 	}
 	file.close();
-	file.open(filename.c_str());
-	if(!file)
-	{
-		std::cerr << "Unable to open file " << filename << std::endl;
-		exit(1);
-	}
-	getline(file, line); // to skip header
-	while(getline(file, line))
-	{
-		input.str("");
-		input.clear();
-		input << line;
-		input >> date >> discard >> value;
-		if (input.fail())
-		{
-			std::cerr << "Error: bad input " << line << std::endl;
-			continue ;
-		}
-		if (value < 0 || value > 1000)
-		{
-			std::cerr << "Error: " << value << " (value range betwen 0 and 1000)\n";
-			continue ;
-		}
-		mapItr = _database.find(date);
-		if (mapItr == _database.end())
-			mapItr = --_database.lower_bound(date); // find and lower_bound return bidirectional ierator in map
-		std::cout << date << " => " << value  << " = " << ((mapItr->second)) << std::endl;
-	}
 }

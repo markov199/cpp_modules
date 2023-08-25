@@ -6,7 +6,7 @@
 /*   By: mkovoor <mkovoor@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/04 13:50:34 by mkovoor           #+#    #+#             */
-/*   Updated: 2023/08/14 13:30:41 by mkovoor          ###   ########.fr       */
+/*   Updated: 2023/08/21 15:03:26 by mkovoor          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 #include<deque>
 #include<list>
 #include<queue>
-#include<unordered_set>
 #include<algorithm>
 #include<iterator>
 #include<vector>
@@ -22,23 +21,23 @@
 #include<functional>
 # include"PmergeMe.hpp"
 
-
-
-PmergeMe::PmergeMe(std::vector<int> input):inputVec(input), numOfArgs(input.size())
+PmergeMe::PmergeMe() // put to follow cannonical form
 {
-	int argc = inputVec.size();
+
+}
+
+
+PmergeMe::PmergeMe(std::vector<int> input):_inputVec(input), _numOfArgs(input.size())
+{
+	int argc = _inputVec.size();
 	for (int i = 1; i < argc; i +=2)
 	{
-		if (inputVec[i] < inputVec[i - 1])
-			pairedVec.push_back(std::make_pair(inputVec[i], inputVec[i - 1]));
+		if (_inputVec[i] < _inputVec[i - 1])
+			_pairedVec.push_back(std::make_pair(_inputVec[i], _inputVec[i - 1]));
 		else
-			pairedVec.push_back(std::make_pair(inputVec[i - 1], inputVec[i]));
+			_pairedVec.push_back(std::make_pair(_inputVec[i - 1], _inputVec[i]));
 	}
-	std::sort(pairedVec.begin(), pairedVec.end(), comparePair);
-	for (std::vector<std::pair<int, int> >::iterator pairedVecIt = pairedVec.begin(); pairedVecIt != pairedVec.end(); pairedVecIt++)
-	std::cout << pairedVecIt->first << "," << pairedVecIt->second << "  ";
-	std::cout << '\n';
-
+	std::sort(_pairedVec.begin(), _pairedVec.end(), comparePair);
 }
 
 PmergeMe::~PmergeMe()
@@ -48,46 +47,46 @@ PmergeMe::~PmergeMe()
 
 PmergeMe::PmergeMe(const PmergeMe &copy)
 {
-	this->inputVec = copy.inputVec;
-	this->pairedVec = copy.pairedVec;
-	this->numOfArgs = copy.numOfArgs;
+	this->_inputVec = copy._inputVec;
+	this->_pairedVec = copy._pairedVec;
+	this->_numOfArgs = copy._numOfArgs;
 }
 
 PmergeMe &PmergeMe::operator=(const PmergeMe &rhs)
 {
 	if (this != &rhs)
 	{
-		this->inputVec = rhs.inputVec;
-		this->pairedVec = rhs.pairedVec;
-		this->numOfArgs = rhs.numOfArgs;
+		this->_inputVec = rhs._inputVec;
+		this->_pairedVec = rhs._pairedVec;
+		this->_numOfArgs = rhs._numOfArgs;
 	}
 	return (*this);
 }
 
-void PmergeMe::FjSort()
+void PmergeMe::fjSort()
 {
-	FjSortVector();
-	FjSortDeque();   
+	fjSortVector();
+	fjSortDeque();   
 	display();
 
 }
 
 
-void PmergeMe::FjSortDeque()
+void PmergeMe::fjSortDeque()
 {
 	struct timeval start, end ;
 	std::vector<std::pair<int, int> >::iterator pairedVecIt;
-	int jacobsthalSequence[] = {3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461};
-	int numOfPairs = numOfArgs / 2;
+	int jacobsthalSequence[] = {3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461, 10923, 21845};
+	int numOfPairs = _numOfArgs / 2;
 	for (int i = 0; i < numOfPairs; i++)
 	{
-		if ( i == 0)
+		if ( i == 0) // main chain has pair(0) first already inserted in the correct place
 		{
-			myDeque.push_back(pairedVec[i].first);
-			myDeque.push_back(pairedVec[i].second);			
+			_myDeque.push_back(_pairedVec[i].first);
+			_myDeque.push_back(_pairedVec[i].second);			
 		}
 		else
-			myDeque.push_back(pairedVec[i].second);
+			_myDeque.push_back(_pairedVec[i].second);
 	}
 	gettimeofday(&start, NULL);
 	int sortedIndex = 0;
@@ -96,44 +95,43 @@ void PmergeMe::FjSortDeque()
 		int index = jacobsthalSequence[j];
 		int length = index + sortedIndex;
 		for (int i = index - 1; i > sortedIndex; i--)
-		{
-			
-			pairedVecIt = pairedVec.begin();
-			myDeque.insert(std::lower_bound(myDeque.begin(),myDeque.begin() + length, (pairedVecIt + i)->first), (pairedVecIt + i)->first);
+		{			
+			pairedVecIt = _pairedVec.begin();
+			_myDeque.insert(std::lower_bound(_myDeque.begin(),_myDeque.begin() + length, (pairedVecIt + i)->first), (pairedVecIt + i)->first);
 		}
 		sortedIndex = index - 1;
 	}
 	while (sortedIndex++ < numOfPairs -1)
 	{
-		pairedVecIt = pairedVec.begin();
-		myDeque.insert(std::lower_bound(myDeque.begin(), myDeque.end(), (pairedVecIt + sortedIndex)->first), (pairedVecIt + sortedIndex)->first);
+		pairedVecIt = _pairedVec.begin();
+		_myDeque.insert(std::lower_bound(_myDeque.begin(), _myDeque.end(), (pairedVecIt + sortedIndex)->first), (pairedVecIt + sortedIndex)->first);
 	}
-	if (numOfArgs % 2)
-		myDeque.insert(std::lower_bound(myDeque.begin(), myDeque.end(), inputVec[numOfArgs - 1]),inputVec[numOfArgs - 1]);
+	if (_numOfArgs % 2)
+		_myDeque.insert(std::lower_bound(_myDeque.begin(), _myDeque.end(), _inputVec[_numOfArgs - 1]),_inputVec[_numOfArgs - 1]);
 	gettimeofday(&end, NULL);
  
-    timeDequeSort = (end.tv_sec - start.tv_sec) * 1e6;
-    timeDequeSort = (timeDequeSort + (end.tv_usec -
+    _timeDequeSort = (end.tv_sec - start.tv_sec) * 1e6;
+    _timeDequeSort = (_timeDequeSort + (end.tv_usec -
                               start.tv_usec)) ; 
 }
 
-void PmergeMe::FjSortVector()
+void PmergeMe::fjSortVector()
 {
 	struct timeval start, end ;
 	std::vector<std::pair<int, int> >::iterator pairedVecIt;
 	int jacobsthalSequence[] = {3, 5, 11, 21, 43, 85, 171, 341, 683, 1365, 2731, 5461};	
-	int numOfPairs = numOfArgs / 2;
+	int numOfPairs = _numOfArgs / 2;
 
 	
 	for (int i = 0; i < numOfPairs; i++)
 	{
 		if ( i == 0)
 		{
-			myVector.push_back(pairedVec[i].first);
-			myVector.push_back(pairedVec[i].second);			
+			_myVector.push_back(_pairedVec[i].first);
+			_myVector.push_back(_pairedVec[i].second);			
 		}
 		else
-			myVector.push_back(pairedVec[i].second);
+			_myVector.push_back(_pairedVec[i].second);
 	}
 	gettimeofday(&start, NULL);
 	int sortedIndex = 0;
@@ -141,24 +139,23 @@ void PmergeMe::FjSortVector()
 	{
 		int index = jacobsthalSequence[j];
 		int length = index + sortedIndex;
-		for (int i = index - 1; i > sortedIndex; i--)
+		for (int i = index - 1; i > sortedIndex -1; i--)
 		{
-			pairedVecIt = pairedVec.begin();
-			std::cout << *(myVector.begin() +length ) << "search till for " << (pairedVecIt + i)->first<< "\n";
-			myVector.insert(std::lower_bound(myVector.begin(),myVector.begin() +length, (pairedVecIt + i)->first), (pairedVecIt + i)->first);
+			pairedVecIt = _pairedVec.begin();
+			_myVector.insert(std::lower_bound(_myVector.begin(),_myVector.begin() +length, (pairedVecIt + i)->first), (pairedVecIt + i)->first);
 		}
 		sortedIndex = index - 1;
 	}
 	while (sortedIndex++ < numOfPairs - 1)
 	{
-		pairedVecIt = pairedVec.begin();
-		myVector.insert(std::lower_bound(myVector.begin(), myVector.end(), (pairedVecIt + sortedIndex)->first), (pairedVecIt + sortedIndex)->first);
+		pairedVecIt = _pairedVec.begin();
+		_myVector.insert(std::lower_bound(_myVector.begin(), _myVector.end(), (pairedVecIt + sortedIndex)->first), (pairedVecIt + sortedIndex)->first);
 	}
-	if (numOfArgs % 2)
-		myVector.insert(std::lower_bound(myVector.begin(), myVector.end(), inputVec[numOfArgs - 1]),inputVec[numOfArgs - 1]);
+	if (_numOfArgs % 2)
+		_myVector.insert(std::lower_bound(_myVector.begin(), _myVector.end(), _inputVec[_numOfArgs - 1]),_inputVec[_numOfArgs - 1]);
 	gettimeofday(&end, NULL); 
-    timeVectorSort = (end.tv_sec - start.tv_sec) * 1e6;
-    timeVectorSort = (timeVectorSort + (end.tv_usec -
+    _timeVectorSort = (end.tv_sec - start.tv_sec) * 1e6;
+    _timeVectorSort = (_timeVectorSort + (end.tv_usec -
                               start.tv_usec) ) ;
 
 }
@@ -170,28 +167,33 @@ bool PmergeMe::comparePair(const std::pair<int, int> &p1, const std::pair<int, i
 
 void PmergeMe::display(void)
 {
-	// std::cout << "\nBefore:  " ;
-	// for(std::vector<int>::iterator vItr = inputVec.begin(); vItr != inputVec.end(); vItr++)
-	// std::cout << *vItr << " ";
+	std::cout << "\nBefore:  " ;
+	for(std::vector<int>::iterator vItr = _inputVec.begin(); vItr != _inputVec.end(); vItr++)
+	std::cout << *vItr << " ";
+	std::cout << "\n\nAfter:   " ;
+	for(std::vector<int>::iterator vItr = _myVector.begin(); vItr != _myVector.end(); vItr++)
+	std::cout << *vItr << " ";
+	std::cout << "\n\nTime taken to process range of " <<  this->_numOfArgs <<  " numbers using std::vectors is: " << std::fixed <<  _timeVectorSort << std::setprecision(6);
+	std::cout << " us" << std::endl;
+		std::cout << "Time taken to process range of " <<  this->_numOfArgs <<  " numbers using std::deque is: "  << std::fixed << _timeDequeSort << std::setprecision(6);
+	std::cout << " us" << std::endl;
 
-	if (std::is_sorted(myDeque.begin(), myDeque.end()) &&std::is_sorted(myVector.begin(), myVector.end()))
-	{
-		std::cout << "\nAfter:   " ;
-		for(std::vector<int>::iterator vItr = myVector.begin(); vItr != myVector.end(); vItr++)
-		std::cout << *vItr << " ";
-		// for(std::deque<int>::iterator vItr = myDeque.begin(); vItr != myDeque.end(); vItr++)
-		// std::cout << *vItr << " ";
-		std::cout << "\n\nTime taken vector is : " << std::fixed << timeVectorSort << std::setprecision(6);
-    	std::cout << " us" << std::endl;
-		 std::cout << "Time taken by deque is : " << std::fixed << timeDequeSort << std::setprecision(6);
-    	std::cout << " us" << std::endl;
-
-	}
-	else 
-	std::cout << "ERROR :: not sorted\n";
-
-
+	if (std::is_sorted(_myDeque.begin(), _myDeque.end()) &&std::is_sorted(_myVector.begin(), _myVector.end()))
+		std::cout << "\nSuccess!!\n";
+	else
+		std::cout << "\n Not sorted((";
 }
+
+
+
+
+
+
+
+
+
+
+
 
 // for (std::vector<std::pair<int, int> >::iterator pairedVecIt = pairedVec.begin(); pairedVecIt != pairedVec.end(); pairedVecIt++)
 // 	std::cout << pairedVecIt->first << "," << pairedVecIt->second << "  ";
