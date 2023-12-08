@@ -15,6 +15,7 @@
 #include<cstdlib>
 #include<algorithm>
 #include"Span.hpp"
+#include<numeric>
   
 
 Span::Span():_N(0)
