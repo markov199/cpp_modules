@@ -14,14 +14,13 @@
 #include<stdexcept>
 #include<cstdlib>
 #include<algorithm>
-#include<numeric>
 #include"Span.hpp"
   
 
 Span::Span():_N(0)
 {}
 
-Span::Span(unsigned int size):_N(size), _array(size)
+Span::Span(unsigned int size):_N(size)
 {}
 
 Span::~Span()
@@ -29,8 +28,7 @@ Span::~Span()
 
 Span::Span(const Span &copy)
 {
-	*this = copy;
-	// _array.assign(copy._array.begin(), copy._array.end());
+	_array.assign(copy._array.begin(), copy._array.end());
 }
 
 Span &Span::operator=(const Span &rhs)
@@ -59,18 +57,7 @@ unsigned int Span::shortestSpan(void)
 	std::vector<int> diff(size, 0);
 	std::sort(_array.begin(), _array.begin() + size);
 	std::adjacent_difference(_array.begin(), _array.begin() + size, diff.begin());
-	return (*std::min_element(diff.begin(), diff.begin() + size));
-	// int shortest = abs((_array[0] - _array[1]));
-	// for (int i = 0; i <(int) size; i++)
-	// {
-	// 	for(int j = i + 1; j < (int)size; j++)
-	// 	 	if (abs((_array[i] - _array[j])) < shortest)
-	// 			shortest = abs((_array[i] - _array[j]));
-	// }
-	// return (shortest);
-
-
-
+	return (*std::min_element(++diff.begin(), diff.begin() + size));
 }
 
 unsigned int Span::longestSpan(void)
@@ -90,12 +77,12 @@ void Span::fill(int x)
 
 void Span::fill(std::vector<int>::iterator start, std::vector<int>::iterator end)
 {
-	_array.assign(start, end);
+	_array.assign(start, end + 1);
 }
 
 void Span::fill(int *start, int *end)
 {
-	_array.assign(start, end);
+	_array.assign(start, end + 1);
 }
 
 const char *Span::invalidOperation::what () const throw()
